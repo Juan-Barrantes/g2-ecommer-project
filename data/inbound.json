@@ -1,0 +1,14 @@
+[
+  {
+    "id": "INB-5001",
+    "poId": "PO-1001",
+    "carrier": "FríoExpress",
+    "eta": "2025-09-05T14:00:00Z",
+    "status": "En tránsito",
+    "items": [
+      { "productId": 203, "name": "Salchicha Frankfurt 1kg", "qty": 60 },
+      { "productId": 206, "name": "Tocino Ahumado 250g", "qty": 120 }
+    ]
+  }
+]
+

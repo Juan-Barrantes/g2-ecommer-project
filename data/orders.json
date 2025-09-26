@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ORD-AB12CD",
+    "createdAt": "2025-09-02T12:30:00Z",
+    "status": "Recibida",
+    "items": [
+      { "id": 201, "name": "Jamón Inglés 250g", "qty": 24, "unit": "paquete 250g", "price": 12.3, "category": "Jamones" },
+      { "id": 204, "name": "Hot Dog Familiar 500g", "qty": 40, "unit": "paquete 500g", "price": 11.4, "category": "Salchichas" }
+    ],
+    "totals": { "subtotal": 24*12.3 + 40*11.4, "shipping": 0, "total": 24*12.3 + 40*11.4 },
+    "customer": { "name": "Bodega San Martín", "phone": "+51 987654321", "address": "Av. San Martín 456, Lima" },
+    "notes": "",
+    "payment": "tarjeta"
+  },
+  {
+    "id": "ORD-EF34GH",
+    "createdAt": "2025-09-04T09:10:00Z",
+    "status": "Recibida",
+    "items": [
+      { "id": 203, "name": "Salchicha Frankfurt 1kg", "qty": 20, "unit": "bolsa 1kg", "price": 21.5, "category": "Salchichas" },
+      { "id": 206, "name": "Tocino Ahumado 250g", "qty": 24, "unit": "paquete 250g", "price": 11.9, "category": "Ahumados" }
+    ],
+    "totals": { "subtotal": 20*21.5 + 24*11.9, "shipping": 19.9, "total": 20*21.5 + 24*11.9 + 19.9 },
+    "customer": { "name": "Minimarket El Sol", "phone": "+51 912345678", "address": "Jr. Los Olivos 123, Lima" },
+    "notes": "",
+    "payment": "contraentrega"
+  }
+  ,
+  {
+    "id": "ORD-IJ56KL",
+    "createdAt": "2025-09-06T11:45:00Z",
+    "status": "Recibida",
+    "items": [
+      { "id": 212, "name": "Pechuga de Pavo 500g", "qty": 24, "unit": "paquete 500g", "price": 26.9, "category": "Pavo" },
+      { "id": 216, "name": "Salami 250g", "qty": 12, "unit": "paquete 250g", "price": 16.2, "category": "Fiambres" }
+    ],
+    "totals": { "subtotal": 24*26.9 + 12*16.2, "shipping": 0, "total": 24*26.9 + 12*16.2 },
+    "customer": { "name": "Hipermercados SA", "phone": "+51 900111222", "address": "Av. Principal 123, Lima" },
+    "notes": "",
+    "payment": "tarjeta"
+  },
+  {
+    "id": "ORD-MN78OP",
+    "createdAt": "2025-09-08T15:20:00Z",
+    "status": "Recibida",
+    "items": [
+      { "id": 214, "name": "Chorizo Ahumado 1kg", "qty": 20, "unit": "bolsa 1kg", "price": 27.9, "category": "Chorizos" },
+      { "id": 217, "name": "Hot Dog Tradicional 1kg", "qty": 20, "unit": "bolsa 1kg", "price": 20.2, "category": "Salchichas" }
+    ],
+    "totals": { "subtotal": 20*27.9 + 20*20.2, "shipping": 19.9, "total": 20*27.9 + 20*20.2 + 19.9 },
+    "customer": { "name": "Cadenas Express", "phone": "+51 900333444", "address": "Av. Industrial 777, Callao" },
+    "notes": "",
+    "payment": "contraentrega"
+  },
+  {
+    "id": "ORD-QR90ST",
+    "createdAt": "2025-09-10T10:10:00Z",
+    "status": "Recibida",
+    "items": [
+      { "id": 201, "name": "Jamón Inglés 250g", "qty": 12, "unit": "paquete 250g", "price": 12.9, "category": "Jamones" },
+      { "id": 211, "name": "Jamón Inglés 500g", "qty": 12, "unit": "paquete 500g", "price": 23.5, "category": "Jamones" }
+    ],
+    "totals": { "subtotal": 12*12.9 + 12*23.5, "shipping": 19.9, "total": 12*12.9 + 12*23.5 + 19.9 },
+    "customer": { "name": "Bodega San Martín", "phone": "+51 987654321", "address": "Av. San Martín 456, Lima" },
+    "notes": "",
+    "payment": "tarjeta"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "U1",
+    "name": "Bodega San Martín",
+    "email": "demo@bodega.pe",
+    "password": "demo123",
+    "phone": "+51 987654321",
+    "address": "Av. San Martín 456, Lima",
+    "role": "cliente"
+  },
+  {
+    "id": "U2",
+    "name": "Minimarket El Sol",
+    "email": "sol@minimarket.pe",
+    "password": "sol12345",
+    "phone": "+51 912345678",
+    "address": "Jr. Los Olivos 123, Lima",
+    "role": "cliente"
+  },
+  {
+    "id": "MKT1",
+    "name": "Equipo Marketing Braedt",
+    "email": "marketing@braedt.pe",
+    "password": "braedt2025",
+    "phone": "+51 901111111",
+    "address": "Sede Braedt Lima",
+    "role": "marketing"
+  },
+  {
+    "id": "ALM1",
+    "name": "Almacén Central Braedt",
+    "email": "almacen@braedt.pe",
+    "password": "almacen2025",
+    "phone": "+51 902222222",
+    "address": "Sede Braedt Callao",
+    "role": "almacen"
+  },
+  {
+    "id": "VEN1",
+    "name": "Ventas Corporativas Braedt",
+    "email": "ventas@braedt.pe",
+    "password": "ventas2025",
+    "phone": "+51 903333333",
+    "address": "Sede Braedt Lima",
+    "role": "ventas"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "PO-1001",
+    "supplier": "Proveedor Cárnico S.A.",
+    "createdAt": "2025-09-01T10:00:00Z",
+    "eta": "2025-09-05T14:00:00Z",
+    "status": "Confirmada",
+    "items": [
+      { "productId": 203, "name": "Salchicha Frankfurt 1kg", "qty": 60 },
+      { "productId": 206, "name": "Tocino Ahumado 250g", "qty": 120 }
+    ]
+  },
+  {
+    "id": "PO-1002",
+    "supplier": "Embutidos del Sur",
+    "createdAt": "2025-09-03T09:30:00Z",
+    "eta": "2025-09-07T16:00:00Z",
+    "status": "Pendiente",
+    "items": [
+      { "productId": 205, "name": "Chorizo Parrillero 500g", "qty": 80 }
+    ]
+  }
+]
+

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Braedt Directo — Compra mayorista de embutidos</title>
+    <meta name="description" content="Compra directa de embutidos Braedt para tu negocio. Precios mayoristas, entrega refrigerada y escalas por volumen." />
+
+    <!-- TailwindCSS CDN for rapid modern UI prototyping -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#fff1f2',
+                100: '#ffe4e6',
+                200: '#fecdd3',
+                300: '#fda4af',
+                400: '#fb7185',
+                500: '#f43f5e',
+                600: '#e11d48',
+                700: '#be123c',
+                800: '#9f1239',
+                900: '#881337',
+              },
+            },
+            boxShadow: {
+              soft: '0 2px 12px rgba(15,23,42,0.08)'
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Icons -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body class="app-body bg-slate-100 text-slate-800 antialiased">
+    <div class="app-shell">
+      <!-- Top Notification -->
+      <div id="top-banner" class="hidden md:flex items-center justify-center gap-2 bg-brand-600 text-white text-sm py-2">
+        <span class="material-icons-outlined text-base">ac_unit</span>
+        <span>Compra directa de Braedt • Entrega refrigerada • Envío gratis desde S/ 600</span>
+      </div>
+
+      <!-- Header / Navbar -->
+      <header class="app-header sticky top-0 z-40 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-16">
+            <a href="#/" class="flex items-center gap-2 group">
+              <div class="h-8 w-8 rounded bg-brand-600 flex items-center justify-center text-white font-bold">B</div>
+              <div class="text-lg font-semibold tracking-tight">Braedt Directo</div>
+            </a>
+            <div class="hidden md:flex items-center gap-6 w-[48%]">
+              <div class="flex-1 relative">
+                <span class="material-icons-outlined absolute left-3 top-2.5 text-slate-400">search</span>
+                <input id="globalSearch" type="search" placeholder="Buscar productos, marcas, categorías..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-white" />
+              </div>
+              <a href="#/catalogo" data-route="/catalogo" class="nav-link nav-shop text-sm font-medium text-slate-700 hover:text-brand-700">Catálogo</a>
+              <a href="#/ordenes" data-route="/ordenes" class="nav-link nav-shop text-sm font-medium text-slate-700 hover:text-brand-700">Órdenes</a>
+              <a href="#/chat" data-route="/chat" class="nav-link text-sm font-medium text-slate-700 hover:text-brand-700">Chat</a>
+              <a href="#/panel" data-route="/panel" class="nav-link nav-panel hidden text-sm font-medium text-slate-700 hover:text-brand-700">Panel</a>
+            </div>
+            <div class="flex items-center gap-3">
+              <a href="#/cuenta" data-route="/cuenta" class="nav-link flex items-center gap-2 text-slate-700 hover:text-brand-700">
+                <span class="material-icons-outlined">account_circle</span>
+                <span class="hidden sm:block text-sm font-medium" id="navUserName">Mi cuenta</span>
+              </a>
+              <a href="#/carrito" data-route="/carrito" class="nav-link nav-shop relative flex items-center gap-2 text-slate-700 hover:text-brand-700">
+                <span class="material-icons-outlined">shopping_cart</span>
+                <span class="hidden sm:block text-sm font-medium">Carrito</span>
+                <span id="cartBadge" class="absolute -top-2 -right-2 h-5 min-w-[20px] px-1 rounded-full bg-brand-600 text-white text-xs flex items-center justify-center">0</span>
+              </a>
+              <button id="themeToggle" class="ml-1 p-2 rounded-lg hover:bg-slate-100 text-slate-600" title="Cambiar tema">
+                <span class="material-icons-outlined">dark_mode</span>
+              </button>
+              <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-100">
+                <span class="material-icons-outlined">menu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Mobile search + nav -->
+        <div id="mobileNav" class="md:hidden hidden border-t border-slate-200">
+          <div class="px-4 py-3 flex items-center gap-2">
+            <span class="material-icons-outlined text-slate-400">search</span>
+            <input id="globalSearchMobile" type="search" placeholder="Buscar en el catálogo..." class="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white" />
+          </div>
+          <nav class="px-4 pb-3 flex items-center gap-4 text-sm">
+            <a href="#/catalogo" data-route="/catalogo" class="nav-link nav-shop px-3 py-2 rounded-lg hover:bg-slate-100">Catálogo</a>
+            <a href="#/ordenes" data-route="/ordenes" class="nav-link nav-shop px-3 py-2 rounded-lg hover:bg-slate-100">Órdenes</a>
+            <a href="#/chat" data-route="/chat" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100">Chat</a>
+            <a href="#/panel" data-route="/panel" class="nav-link nav-panel hidden px-3 py-2 rounded-lg hover:bg-slate-100">Panel</a>
+            <a href="#/cuenta" data-route="/cuenta" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100">Cuenta</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main id="app" class="flex-1 min-h-[70vh] pb-24 md:pb-0"></main>
+
+      <!-- Footer -->
+      <footer class="app-footer mt-10 md:mt-16 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
+          <div>
+              <div class="flex items-center gap-2 mb-3">
+              <div class="h-8 w-8 rounded bg-brand-600 flex items-center justify-center text-white font-bold">B</div>
+              <div class="text-lg font-semibold">Braedt Directo</div>
+            </div>
+            <p class="text-sm text-slate-600">Compra directa de embutidos Braedt: precios mayoristas, escalas por volumen y entrega refrigerada.</p>
+          </div>
+          <div class="hidden md:block">
+            <div class="text-sm font-semibold mb-3">Navegación</div>
+            <ul class="space-y-2 text-sm">
+              <li><a class="hover:text-brand-700" href="#/catalogo">Catálogo</a></li>
+              <li><a class="hover:text-brand-700" href="#/ordenes">Órdenes</a></li>
+              <li><a class="hover:text-brand-700" href="#/chat">Chat</a></li>
+              <li><a class="hover:text-brand-700" href="#/cuenta">Cuenta</a></li>
+            </ul>
+          </div>
+          <div class="hidden md:block">
+            <div class="text-sm font-semibold mb-3">Soporte</div>
+            <ul class="space-y-2 text-sm">
+              <li>WhatsApp: +51 900 000 000</li>
+              <li>Correo: soporte@braedt.pe</li>
+              <li>Horario: Lun-Vie 9:00–18:00</li>
+            </ul>
+          </div>
+          <div class="hidden md:block">
+            <div class="text-sm font-semibold mb-3">Boletín</div>
+            <div class="flex gap-2">
+              <input type="email" placeholder="Tu correo" class="flex-1 px-3 py-2 rounded-lg border border-slate-200" />
+              <button class="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium">Suscribirme</button>
+            </div>
+          </div>
+          <div class="md:hidden space-y-4">
+            <div class="rounded-2xl bg-white p-4 shadow-soft">
+              <div class="text-sm font-semibold mb-2">Soporte</div>
+              <p class="text-sm text-slate-600">Escríbenos por WhatsApp o desde el chat en vivo para ayudarte.</p>
+            </div>
+            <div class="rounded-2xl bg-white p-4 shadow-soft">
+              <div class="text-sm font-semibold mb-2">Última actualización</div>
+              <p class="text-xs text-slate-500">© <span id="year"></span> Braedt • Version app v2</p>
+            </div>
+          </div>
+        </div>
+        <div class="py-4 text-center text-xs text-slate-500 hidden md:block">© <span id="year-desktop"></span> Braedt</div>
+      </footer>
+    </div>
+
+    <!-- Mobile tab bar -->
+    <nav id="mobileTabBar" class="mobile-tab md:hidden fixed inset-x-0 bottom-0 z-50">
+      <div class="mobile-tab__inner">
+        <a href="#/" data-route="/" class="mobile-tab__item">
+          <span class="material-icons-outlined">home</span>
+          <span>Inicio</span>
+        </a>
+        <a href="#/catalogo" data-route="/catalogo" class="mobile-tab__item">
+          <span class="material-icons-outlined">storefront</span>
+          <span>Tienda</span>
+        </a>
+        <a href="#/chat" data-route="/chat" class="mobile-tab__item">
+          <span class="material-icons-outlined">chat</span>
+          <span>Chat</span>
+        </a>
+        <a href="#/carrito" data-route="/carrito" class="mobile-tab__item relative">
+          <span class="material-icons-outlined">shopping_cart</span>
+          <span>Carrito</span>
+          <span id="cartBadgeMobile" class="mobile-tab__badge">0</span>
+        </a>
+        <a href="#/cuenta" data-route="/cuenta" class="mobile-tab__item">
+          <span class="material-icons-outlined">person</span>
+          <span>Cuenta</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Toasts -->
+    <div id="toastContainer" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 space-y-2 w-[92%] sm:w-auto md:bottom-4"></div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+  </html>

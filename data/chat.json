@@ -1,0 +1,23 @@
+[
+  {
+    "id": "msg-welcome",
+    "from": "agent",
+    "text": "¡Hola! Soy Laura del equipo Braedt Directo. ¿Cómo puedo ayudarte hoy?",
+    "createdAt": "2024-05-02T15:01:00.000Z",
+    "status": "delivered"
+  },
+  {
+    "id": "msg-customer-1",
+    "from": "customer",
+    "text": "Hola Laura, me interesan los precios por volumen de las salchichas jumbo.",
+    "createdAt": "2024-05-02T15:02:12.000Z",
+    "status": "delivered"
+  },
+  {
+    "id": "msg-agent-2",
+    "from": "agent",
+    "text": "¡Perfecto! Tenemos escalas desde 5, 10 y 20 cajas. También puedo programar una visita de nuestro asesor comercial.",
+    "createdAt": "2024-05-02T15:03:45.000Z",
+    "status": "delivered"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "CT-9001",
+    "customer": "Hipermercados SA",
+    "startDate": "2025-01-01",
+    "endDate": "2025-12-31",
+    "discount": 0.08,
+    "terms": "Pago a 30 días. Volumen mínimo mensual 500 kg.",
+    "status": "Vigente"
+  },
+  {
+    "id": "CT-9002",
+    "customer": "Cadenas Express",
+    "startDate": "2025-03-01",
+    "endDate": "2025-09-30",
+    "discount": 0.05,
+    "terms": "Pago a 15 días. Bonificación trimestral por objetivos.",
+    "status": "Vigente"
+  }
+]
+
