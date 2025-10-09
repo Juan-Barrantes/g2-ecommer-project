@@ -105,8 +105,16 @@ function normalizeOrder(order) {
   if (!normalized.tracking) {
     normalized.tracking = buildTracking(normalized);
   }
-  const currentStep = normalized.tracking.steps?.find(step => step.status === 'current') || normalized.tracking.steps?.find(step => step.status === 'done');
-  if (currentStep) normalized.status = currentStep.label;
+  if (normalized.status !== 'Cancelada') {
+    const currentStep = normalized.tracking.steps?.find(step => step.status === 'current') || normalized.tracking.steps?.find(step => step.status === 'done');
+    if (currentStep) normalized.status = currentStep.label;
+  } else if (normalized.tracking) {
+    normalized.tracking.steps = (normalized.tracking.steps || []).map(step => ({
+      ...step,
+      status: 'upcoming',
+    }));
+    normalized.tracking.progress = 0;
+  }
   return normalized;
 }
 
@@ -261,6 +269,34 @@ export function createOrder(payload) {
 
 export const listOrders = () => state.orders;
 export const findOrder = (id) => state.orders.find(o => String(o.id) === String(id));
+
+export function cancelOrder(orderId) {
+  const order = state.orders.find(o => String(o.id) === String(orderId));
+  if (!order || order.status === 'Cancelada') return false;
+  order.status = 'Cancelada';
+  const cancelledAt = new Date().toISOString();
+  if (order.tracking) {
+    order.tracking.steps = (order.tracking.steps || []).map(step => ({
+      ...step,
+      status: 'upcoming',
+    }));
+    order.tracking.progress = 0;
+    order.tracking.cancelledAt = cancelledAt;
+    order.tracking.updatedAt = cancelledAt;
+    order.tracking.eta = null;
+  } else {
+    order.tracking = {
+      cancelledAt,
+      updatedAt: cancelledAt,
+      steps: [],
+      route: null,
+      progress: 0,
+    };
+  }
+  save(STORAGE_KEYS.orders, state.orders);
+  document.dispatchEvent(new CustomEvent('orders:updated', { detail: { id: orderId, status: 'Cancelada' } }));
+  return true;
+}
 export const listPurchaseOrders = () => state.purchaseOrders;
 export const listInbound = () => state.inbound;
 export const listContracts = () => state.contracts;

@@ -15,8 +15,8 @@ function buildMapUrl(route) {
   return `https://staticmap.openstreetmap.de/staticmap.php?size=${size}&zoom=${zoom}&markers=${start}&markers=${end}&path=${pathParam}`;
 }
 
-function trackProgress(steps = []) {
-  if (!steps.length) return 0;
+function trackProgress(steps = [], isCancelled = false) {
+  if (isCancelled || !steps.length) return 0;
   const done = steps.filter(step => step.status === 'done').length;
   const currentIndex = steps.findIndex(step => step.status === 'current');
   const partial = currentIndex >= 0 ? 0.5 : 0;
@@ -64,7 +64,8 @@ export default function renderTracking({ query }) {
   }
 
   const tracking = order.tracking || {};
-  const progress = Math.round(trackProgress(tracking.steps) * 100);
+  const isCancelled = order.status === 'Cancelada';
+  const progress = Math.round(trackProgress(tracking.steps, isCancelled) * 100);
   const mapUrl = buildMapUrl(tracking.route);
 
   app.innerHTML = `
@@ -80,9 +81,9 @@ export default function renderTracking({ query }) {
             <span class="material-icons-outlined text-base">arrow_back</span>
             Volver a mis órdenes
           </a>
-          <div class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
-            <span class="material-icons-outlined text-base">schedule</span>
-            ETA ${tracking.eta ? formatDate(tracking.eta) : '—'}
+          <div class="inline-flex items-center gap-2 rounded-full ${isCancelled ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-700'} px-4 py-2 text-sm font-semibold">
+            <span class="material-icons-outlined text-base">${isCancelled ? 'cancel' : 'schedule'}</span>
+            ${isCancelled ? 'Orden anulada' : `ETA ${tracking.eta ? formatDate(tracking.eta) : '—'}`}
           </div>
         </div>
       </div>
@@ -91,32 +92,46 @@ export default function renderTracking({ query }) {
         <section class="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div class="flex items-center justify-between">
             <div>
-              <div class="text-sm font-semibold text-slate-700">${order.status || 'En proceso'}</div>
-              <p class="text-xs text-slate-500">Seguimos el recorrido del repartidor hasta tu negocio.</p>
+              <div class="text-sm font-semibold ${isCancelled ? 'text-rose-600' : 'text-slate-700'}">${order.status || 'En proceso'}</div>
+              <p class="text-xs text-slate-500">${isCancelled ? 'Esta orden fue anulada. No se realizarán más movimientos.' : 'Seguimos el recorrido del repartidor hasta tu negocio.'}</p>
             </div>
             <div class="text-right">
               <div class="text-xs uppercase tracking-wide text-slate-400">Progreso</div>
-              <div class="text-xl font-semibold text-brand-600">${progress}%</div>
+              <div class="text-xl font-semibold ${isCancelled ? 'text-rose-500' : 'text-brand-600'}">${progress}%</div>
             </div>
           </div>
           <div class="h-2 rounded-full bg-slate-100 overflow-hidden">
-            <div class="h-full rounded-full bg-brand-500 transition-all" style="width:${progress}%"></div>
+            <div class="h-full rounded-full ${isCancelled ? 'bg-rose-400' : 'bg-brand-500'} transition-all" style="width:${progress}%"></div>
           </div>
           <div class="grid gap-4">
             ${(tracking.steps || []).map(step => `
               <div class="flex items-start gap-3">
-                <span class="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border ${step.status === 'done' ? 'border-emerald-200 bg-emerald-50 text-emerald-600' : step.status === 'current' ? 'border-brand-200 bg-brand-50 text-brand-600' : 'border-slate-200 bg-slate-50 text-slate-400'}">
+                <span class="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border ${
+                  isCancelled
+                    ? 'border-rose-200 bg-rose-50 text-rose-400'
+                    : step.status === 'done'
+                      ? 'border-emerald-200 bg-emerald-50 text-emerald-600'
+                      : step.status === 'current'
+                        ? 'border-brand-200 bg-brand-50 text-brand-600'
+                        : 'border-slate-200 bg-slate-50 text-slate-400'
+                }">
                   <span class="material-icons-outlined text-base">
-                    ${step.status === 'done' ? 'check' : step.status === 'current' ? 'local_shipping' : 'radio_button_unchecked'}
+                    ${isCancelled ? 'cancel' : step.status === 'done' ? 'check' : step.status === 'current' ? 'local_shipping' : 'radio_button_unchecked'}
                   </span>
                 </span>
                 <div>
-                  <div class="text-sm font-semibold text-slate-700">${step.label}</div>
+                  <div class="text-sm font-semibold ${isCancelled ? 'text-rose-600' : 'text-slate-700'}">${step.label}</div>
                   <div class="text-xs text-slate-500">${step.at ? formatDate(step.at) : ''}</div>
                 </div>
               </div>
             `).join('')}
           </div>
+          ${isCancelled && tracking.cancelledAt ? `
+            <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-600">
+              <div class="font-semibold">Orden anulada</div>
+              <div class="text-xs text-rose-500">Registrado: ${formatDate(tracking.cancelledAt)}</div>
+            </div>
+          ` : ''}
         </section>
 
         <aside class="space-y-4">

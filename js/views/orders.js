@@ -1,4 +1,4 @@
-import { listOrders } from '../store.js';
+import { listOrders, cancelOrder } from '../store.js';
 import { formatDate, formatPrice } from '../utils/format.js';
 
 const paymentLabels = {
@@ -6,6 +6,15 @@ const paymentLabels = {
   contraentrega: 'Pago contraentrega',
   transferencia: 'Transferencia bancaria',
   yape: 'Yape/Plin (QR)',
+};
+
+const statusColors = {
+  'Orden confirmada': 'bg-blue-100 text-blue-600',
+  'Pedido en preparación': 'bg-amber-100 text-amber-600',
+  'En camino': 'bg-emerald-100 text-emerald-600',
+  'Entrega realizada': 'bg-slate-200 text-slate-600',
+  Recibida: 'bg-blue-100 text-blue-600',
+  Cancelada: 'bg-rose-100 text-rose-600',
 };
 
 export default function renderOrders() {
@@ -34,7 +43,7 @@ export default function renderOrders() {
                 </div>
               </div>
               <div class="flex flex-wrap items-center gap-3">
-                <span class="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">${o.status}</span>
+                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${statusColors[o.status] || 'bg-slate-100 text-slate-600'}">${o.status}</span>
                 <div class="text-sm font-semibold text-slate-700">${formatPrice(o.totals.total)}</div>
                 <button data-target="order-detail-${idx}" aria-controls="order-detail-${idx}" aria-expanded="false" class="order-toggle inline-flex items-center gap-1 rounded-full border border-slate-200 px-3 py-1 text-sm font-medium text-slate-600 transition hover:border-brand-200 hover:text-brand-600">
                   <span class="order-toggle__icon material-icons-outlined text-base">expand_more</span>
@@ -80,6 +89,16 @@ export default function renderOrders() {
                   <span class="material-icons-outlined text-base">timeline</span>
                   Ver tracking
                 </a>
+                ${o.status !== 'Cancelada' ? `
+                  <button
+                    class="cancel-order-btn inline-flex items-center gap-2 rounded-xl border border-rose-200 px-4 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-50"
+                    data-id="${o.id}"
+                    type="button"
+                  >
+                    <span class="material-icons-outlined text-base">cancel</span>
+                    Anular orden
+                  </button>
+                ` : ''}
               </div>
             </div>
           </div>`).join('')}
@@ -100,6 +119,16 @@ export default function renderOrders() {
       const text = btn.querySelector('.order-toggle__text');
       if (icon) icon.textContent = opened ? 'expand_less' : 'expand_more';
       if (text) text.textContent = opened ? 'Ocultar detalle' : 'Ver detalle';
+    });
+  });
+
+  app.querySelectorAll('.cancel-order-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const { id } = btn.dataset;
+      if (!id) return;
+      if (!window.confirm('¿Deseas anular esta orden?')) return;
+      const cancelled = cancelOrder(id);
+      if (cancelled) renderOrders();
     });
   });
 }
