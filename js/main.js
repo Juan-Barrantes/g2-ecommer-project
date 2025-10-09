@@ -10,6 +10,7 @@ import renderOrders from './views/orders.js';
 import renderAccount from './views/account.js';
 import renderConfirmation from './views/confirmation.js';
 import renderChat from './views/chat.js';
+import renderTracking from './views/tracking.js';
 import renderNotFound from './views/notfound.js';
 import renderPanelHome from './views/panel/home.js';
 import renderPanelMarketing from './views/panel/marketing.js';
@@ -74,6 +75,7 @@ function setupNav() {
       '/producto': '/catalogo',
       '/checkout': '/carrito',
       '/confirmacion': '/ordenes',
+      '/tracking': '/ordenes',
       '/panel-marketing': '/panel',
       '/panel-almacen': '/panel',
       '/panel-ventas': '/panel',
@@ -117,6 +119,7 @@ async function main() {
   addRoute('/chat', renderChat);
   addRoute('/cuenta', renderAccount);
   addRoute('/confirmacion', renderConfirmation);
+  addRoute('/tracking', renderTracking);
   // Panel (empresa)
   addRoute('/panel', () => renderPanelHome({ guard: () => hasRole(['marketing','almacen','ventas']) }));
   addRoute('/panel-marketing', () => renderPanelMarketing({ guard: () => hasRole('marketing') }));

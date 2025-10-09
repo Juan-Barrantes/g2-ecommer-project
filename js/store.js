@@ -22,7 +22,7 @@ const state = {
   users: [],
   user: load(STORAGE_KEYS.user, null),
   cart: load(STORAGE_KEYS.cart, []), // {id, qty}
-  orders: load(STORAGE_KEYS.orders, []),
+  orders: [],
   purchaseOrders: [],
   inbound: [],
   contracts: [],
@@ -34,6 +34,84 @@ function normalizeProducts(list) {
     ...p,
     isFavorite: Boolean(p.isFavorite),
   }));
+}
+
+function addMinutes(date, minutes) {
+  return new Date(date.getTime() + minutes * 60000);
+}
+
+function randomOffset(range) {
+  return (Math.random() - 0.5) * range;
+}
+
+function buildTracking(order) {
+  const now = new Date();
+  const origin = {
+    name: 'Centro de distribución',
+    address: 'Av. Industrial 120, Lima',
+    lat: -12.0453,
+    lon: -77.0311,
+  };
+  const destination = {
+    name: order?.customer?.name || 'Cliente',
+    address: order?.customer?.address || 'Dirección de entrega',
+    lat: Number((origin.lat + randomOffset(0.08)).toFixed(6)),
+    lon: Number((origin.lon + randomOffset(0.08)).toFixed(6)),
+  };
+  const midpoints = [
+    { lat: Number((origin.lat + (destination.lat - origin.lat) * 0.35 + randomOffset(0.01)).toFixed(6)), lon: Number((origin.lon + (destination.lon - origin.lon) * 0.35 + randomOffset(0.01)).toFixed(6)) },
+    { lat: Number((origin.lat + (destination.lat - origin.lat) * 0.7 + randomOffset(0.008)).toFixed(6)), lon: Number((origin.lon + (destination.lon - origin.lon) * 0.7 + randomOffset(0.008)).toFixed(6)) },
+  ];
+  const points = [origin, ...midpoints, destination].map(p => ({ lat: p.lat, lon: p.lon }));
+  const steps = [
+    { id: 'confirmed', label: 'Orden confirmada', at: now.toISOString(), status: 'done' },
+    { id: 'preparing', label: 'Pedido en preparación', at: addMinutes(now, 30).toISOString(), status: 'current' },
+    { id: 'onroute', label: 'En camino', at: addMinutes(now, 90).toISOString(), status: 'upcoming' },
+    { id: 'delivered', label: 'Entrega realizada', at: addMinutes(now, 160).toISOString(), status: 'upcoming' },
+  ];
+  return {
+    updatedAt: now.toISOString(),
+    eta: addMinutes(now, 160).toISOString(),
+    progress: 0.45,
+    driver: {
+      name: 'Luis Fernández',
+      phone: '987 654 321',
+      vehicle: 'Moto - ABX-234',
+    },
+    route: {
+      origin,
+      destination,
+      distance: '12.4 km',
+      duration: '45 min aprox.',
+      points,
+      zoom: 13,
+    },
+    steps,
+  };
+}
+
+function normalizeOrder(order) {
+  if (!order) return order;
+  const normalized = {
+    items: [],
+    totals: { subtotal: 0, shipping: 0, total: 0 },
+    ...order,
+  };
+  normalized.totals = {
+    subtotal: Number(normalized.totals?.subtotal ?? 0),
+    shipping: Number(normalized.totals?.shipping ?? 0),
+    total: Number(normalized.totals?.total ?? 0),
+  };
+  if (!normalized.tracking) {
+    normalized.tracking = buildTracking(normalized);
+  }
+  const currentStep = normalized.tracking.steps?.find(step => step.status === 'current') || normalized.tracking.steps?.find(step => step.status === 'done');
+  if (currentStep) normalized.status = currentStep.label;
+  return normalized;
+}
+
+function normalizeOrders(list) {
+  return (list || []).map(o => normalizeOrder(o));
 }
 
 export async function initStore() {
@@ -64,7 +142,7 @@ export async function initStore() {
   state.products = normalizeProducts(load(STORAGE_KEYS.products, []));
   state.users = load(STORAGE_KEYS.users, []);
   state.cart = load(STORAGE_KEYS.cart, []);
-  state.orders = load(STORAGE_KEYS.orders, []);
+  state.orders = normalizeOrders(load(STORAGE_KEYS.orders, []));
   state.purchaseOrders = load(STORAGE_KEYS.purchaseOrders, []);
   state.inbound = load(STORAGE_KEYS.inbound, []);
   state.contracts = load(STORAGE_KEYS.contracts, []);
@@ -84,6 +162,8 @@ export async function initStore() {
   }
   state.products = normalizeProducts(await rehydrateIfEmpty(state.products, STORAGE_KEYS.products, './data/products.json'));
   save(STORAGE_KEYS.products, state.products);
+  state.orders = normalizeOrders(await rehydrateIfEmpty(state.orders, STORAGE_KEYS.orders, './data/orders.json'));
+  save(STORAGE_KEYS.orders, state.orders);
   state.users = await rehydrateIfEmpty(state.users, STORAGE_KEYS.users, './data/users.json');
   state.chat = await rehydrateIfEmpty(state.chat, STORAGE_KEYS.chat, './data/chat.json');
 }
@@ -170,6 +250,9 @@ export function createOrder(payload) {
     notes: payload.notes || '',
     payment: payload.payment,
   };
+  order.tracking = buildTracking(order);
+  const currentStep = order.tracking.steps?.find(step => step.status === 'current') || order.tracking.steps?.[0];
+  if (currentStep) order.status = currentStep.label;
   state.orders.unshift(order);
   save(STORAGE_KEYS.orders, state.orders);
   clearCart();
@@ -177,6 +260,7 @@ export function createOrder(payload) {
 }
 
 export const listOrders = () => state.orders;
+export const findOrder = (id) => state.orders.find(o => String(o.id) === String(id));
 export const listPurchaseOrders = () => state.purchaseOrders;
 export const listInbound = () => state.inbound;
 export const listContracts = () => state.contracts;

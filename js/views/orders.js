@@ -5,6 +5,7 @@ const paymentLabels = {
   tarjeta: 'Tarjeta',
   contraentrega: 'Pago contraentrega',
   transferencia: 'Transferencia bancaria',
+  yape: 'Yape/Plin (QR)',
 };
 
 export default function renderOrders() {
@@ -74,6 +75,12 @@ export default function renderOrders() {
                 </ul>
               </div>
               ${o.notes ? `<div class="rounded-lg border border-slate-200 bg-white p-3 text-sm text-slate-600"><span class="font-semibold text-slate-700">Notas:</span> ${o.notes}</div>` : ''}
+              <div class="flex flex-wrap gap-2 pt-2">
+                <a href="#/tracking?id=${encodeURIComponent(o.id)}" class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700">
+                  <span class="material-icons-outlined text-base">timeline</span>
+                  Ver tracking
+                </a>
+              </div>
             </div>
           </div>`).join('')}
       </div>
