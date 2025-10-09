@@ -29,6 +29,13 @@ const state = {
   chat: load(STORAGE_KEYS.chat, []),
 };
 
+function normalizeProducts(list) {
+  return (list || []).map(p => ({
+    ...p,
+    isFavorite: Boolean(p.isFavorite),
+  }));
+}
+
 export async function initStore() {
   // Seed from JSON files if not present in localStorage
   async function seed(key, path, fallback) {
@@ -54,7 +61,7 @@ export async function initStore() {
     seed(STORAGE_KEYS.chat, './data/chat.json', []),
   ]);
 
-  state.products = load(STORAGE_KEYS.products, []);
+  state.products = normalizeProducts(load(STORAGE_KEYS.products, []));
   state.users = load(STORAGE_KEYS.users, []);
   state.cart = load(STORAGE_KEYS.cart, []);
   state.orders = load(STORAGE_KEYS.orders, []);
@@ -75,7 +82,8 @@ export async function initStore() {
     }
     return arr;
   }
-  state.products = await rehydrateIfEmpty(state.products, STORAGE_KEYS.products, './data/products.json');
+  state.products = normalizeProducts(await rehydrateIfEmpty(state.products, STORAGE_KEYS.products, './data/products.json'));
+  save(STORAGE_KEYS.products, state.products);
   state.users = await rehydrateIfEmpty(state.users, STORAGE_KEYS.users, './data/users.json');
   state.chat = await rehydrateIfEmpty(state.chat, STORAGE_KEYS.chat, './data/chat.json');
 }
@@ -117,6 +125,17 @@ export function updateQty(productId, qty) {
 export function removeFromCart(productId) {
   state.cart = state.cart.filter(i => i.id !== productId);
   save(STORAGE_KEYS.cart, state.cart);
+}
+
+export function toggleFavorite(productId) {
+  const product = state.products.find(p => String(p.id) === String(productId));
+  if (!product) return false;
+  product.isFavorite = !product.isFavorite;
+  save(STORAGE_KEYS.products, state.products);
+  document.dispatchEvent(new CustomEvent('product:favorited', {
+    detail: { id: productId, isFavorite: product.isFavorite },
+  }));
+  return product.isFavorite;
 }
 
 export function priceFor(product, qty) {

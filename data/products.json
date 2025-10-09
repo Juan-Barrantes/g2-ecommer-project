@@ -13,7 +13,8 @@
     "tags": ["clásico", "alta rotación"],
     "tiers": [{"minQty": 24, "price": 12.3}, {"minQty": 48, "price": 11.8}],
     "description": "Jamón inglés Braedt, ideal para sándwiches y tablas.",
-    "onSale": true
+    "onSale": true,
+    "isFavorite": true
   },
   {
     "id": 202,
@@ -29,7 +30,8 @@
     "tags": ["ligero", "sin gluten"],
     "tiers": [{"minQty": 24, "price": 14.3}, {"minQty": 48, "price": 13.8}],
     "description": "Rebanadas de pavo Braedt, bajo en grasa y delicioso.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 203,
@@ -45,7 +47,8 @@
     "tags": ["foodservice", "parrilla"],
     "tiers": [{"minQty": 20, "price": 21.5}, {"minQty": 50, "price": 20.9}],
     "description": "Salchichas tipo Frankfurt Braedt, sabor tradicional.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 204,
@@ -61,7 +64,8 @@
     "tags": ["familiar", "económico"],
     "tiers": [{"minQty": 40, "price": 11.4}, {"minQty": 100, "price": 10.9}],
     "description": "Salchichas Hot Dog Braedt para toda la familia.",
-    "onSale": true
+    "onSale": true,
+    "isFavorite": true
   },
   {
     "id": 205,
@@ -77,7 +81,8 @@
     "tags": ["parrilla", "ahumado"],
     "tiers": [{"minQty": 24, "price": 14.9}, {"minQty": 48, "price": 14.2}],
     "description": "Chorizos Braedt con especias seleccionadas, perfectos para parrilla.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 206,
@@ -93,7 +98,8 @@
     "tags": ["ahumado", "premium"],
     "tiers": [{"minQty": 24, "price": 11.9}, {"minQty": 48, "price": 11.4}],
     "description": "Tocino ahumado Braedt, ideal para desayunos y recetas.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 207,
@@ -109,7 +115,8 @@
     "tags": ["sandwich", "clásico"],
     "tiers": [{"minQty": 24, "price": 10.5}, {"minQty": 48, "price": 10.0}],
     "description": "Mortadela estilo bolognesa Braedt, sabor de siempre.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 208,
@@ -125,7 +132,8 @@
     "tags": ["foodservice", "alto rendimiento"],
     "tiers": [{"minQty": 12, "price": 22.9}, {"minQty": 24, "price": 21.9}],
     "description": "Jamonada Braedt ideal para corte en tienda o foodservice.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 209,
@@ -141,7 +149,8 @@
     "tags": ["premium", "parrilla"],
     "tiers": [{"minQty": 12, "price": 33.5}, {"minQty": 24, "price": 32.0}],
     "description": "Panceta ahumada Braedt, perfecta para parrillas y recetas gourmet.",
-    "onSale": true
+    "onSale": true,
+    "isFavorite": false
   },
   {
     "id": 210,
@@ -157,7 +166,8 @@
     "tags": ["parrilla", "combo"],
     "tiers": [{"minQty": 16, "price": 25.9}, {"minQty": 32, "price": 24.9}],
     "description": "Combo Braedt para parrilla: chorizos y hot dogs en un solo pack.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   }
   ,
   {
@@ -174,7 +184,8 @@
     "tags": ["clásico"],
     "tiers": [{"minQty": 24, "price": 23.5}],
     "description": "Presentación 500g para mayor rendimiento.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 212,
@@ -190,7 +201,8 @@
     "tags": ["ligero"],
     "tiers": [{"minQty": 24, "price": 26.9}],
     "description": "Pechuga de pavo rebanada.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 213,
@@ -206,7 +218,8 @@
     "tags": ["foodservice"],
     "tiers": [{"minQty": 20, "price": 22.7}],
     "description": "Estilo Viena, ideal para hot dogs.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 214,
@@ -222,7 +235,8 @@
     "tags": ["ahumado"],
     "tiers": [{"minQty": 20, "price": 27.9}],
     "description": "Chorizo ahumado para parrilla.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 215,
@@ -238,7 +252,8 @@
     "tags": ["sandwich"],
     "tiers": [{"minQty": 24, "price": 9.5}],
     "description": "Mortadela de pollo.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 216,
@@ -254,7 +269,8 @@
     "tags": ["premium"],
     "tiers": [{"minQty": 24, "price": 16.2}],
     "description": "Salami estilo europeo.",
-    "onSale": true
+    "onSale": true,
+    "isFavorite": true
   },
   {
     "id": 217,
@@ -270,7 +286,8 @@
     "tags": ["tradicional"],
     "tiers": [{"minQty": 20, "price": 20.2}],
     "description": "Hot dog tradicional.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   },
   {
     "id": 218,
@@ -286,6 +303,7 @@
     "tags": ["parrilla"],
     "tiers": [{"minQty": 24, "price": 14.2}],
     "description": "Longaniza para parrilla.",
-    "onSale": false
+    "onSale": false,
+    "isFavorite": false
   }
 ]
