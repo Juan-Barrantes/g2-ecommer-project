@@ -39,6 +39,11 @@ export default function renderCheckout() {
               <span class="font-medium">Tarjeta de crédito / débito</span>
             </label>
             <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200">
+              <input type="radio" name="pay" value="yape" />
+              <span class="material-icons-outlined text-brand-600">qr_code</span>
+              <span class="font-medium">Yape/Plin (QR)</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200">
               <input type="radio" name="pay" value="contraentrega" />
               <span class="material-icons-outlined text-brand-600">payments</span>
               <span class="font-medium">Pago contra entrega</span>
@@ -53,8 +58,41 @@ export default function renderCheckout() {
           <button class="mt-4 w-full px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">Confirmar compra</button>
         </section>
       </form>
+      <div id="qrModal" class="hidden fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center px-4">
+        <div class="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-lg">
+          <button id="closeQrModal" type="button" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full border border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300">
+            <span class="material-icons-outlined text-base">close</span>
+          </button>
+          <div class="text-lg font-semibold mb-1">Escanea el QR</div>
+          <div class="text-sm text-slate-500 mb-4">Completa el pago desde tu app Yape o Plin y confirma en la plataforma.</div>
+          <div class="flex justify-center">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=Pago%20Mayorista" alt="Código QR Yape/Plin" class="w-52 h-52 rounded-xl border border-slate-200 object-cover"/>
+          </div>
+          <div class="mt-4 text-center text-xs text-slate-400">Tu pedido se confirmará una vez validemos la transferencia.</div>
+        </div>
+      </div>
     </div>
   `;
+
+  const qrModal = document.getElementById('qrModal');
+  const closeQrModal = document.getElementById('closeQrModal');
+  function showQrModal() { qrModal.classList.remove('hidden'); }
+  function hideQrModal() { qrModal.classList.add('hidden'); }
+
+  if (closeQrModal) {
+    closeQrModal.addEventListener('click', hideQrModal);
+  }
+  if (qrModal) {
+    qrModal.addEventListener('click', (e) => {
+      if (e.target === qrModal) hideQrModal();
+    });
+  }
+
+  document.querySelectorAll('input[name="pay"]').forEach(input => {
+    input.addEventListener('change', (e) => {
+      if (e.target.value === 'yape') showQrModal();
+    });
+  });
 
   document.getElementById('payForm').addEventListener('submit', (e)=>{
     e.preventDefault();
@@ -70,4 +108,3 @@ export default function renderCheckout() {
     navigate(`/confirmacion?id=${encodeURIComponent(order.id)}&phone=${encodeURIComponent(phone)}`);
   });
 }
-
