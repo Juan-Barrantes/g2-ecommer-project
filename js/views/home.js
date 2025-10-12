@@ -4,25 +4,25 @@ export default function renderHome() {
   const app = document.getElementById('app');
   const carouselItems = [
     {
-      src: 'https://images.unsplash.com/photo-1604908812172-3a7265a981bc?q=80&w=1400&auto=format&fit=crop',
-      alt: 'Selección de embutidos Braedt en bandejas',
-      tag: 'Novedad',
-      highlight: 'Línea food service 2025',
-      caption: 'Variedad premium lista para tu vitrina refrigerada.',
+      src: '../../../assets/carrusel-1.jpg',
+      alt: 'chorizos y salchichas en una tabla de madera',
+      tag: 'Ofertas',
+      highlight: 'Por el mes de octubre dscto. 15%',
+      caption: 'Variedad premium para tu mesa',
     },
     {
-      src: 'https://images.unsplash.com/photo-1600697395545-ef25b8f1b99c?q=80&w=1400&auto=format&fit=crop',
+      src: '../../../assets/carrusel-2.jpg',
       alt: 'Jamones Braedt empaquetados para entrega',
-      tag: 'Mayorista',
+      tag: 'Nuevo',
       highlight: 'Entrega refrigerada 24h',
-      caption: 'Cobertura Lima y Callao con cadena de frío garantizada.',
+      caption: 'Jamón de pechuga de Pavo',
     },
     {
-      src: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=1400&auto=format&fit=crop',
+      src: '../../../assets/carrusel-3.jpeg',
       alt: 'Persona preparando bocadillos con salchichas',
-      tag: 'Recetas',
-      highlight: 'Ideas listas para vender',
-      caption: 'Activa tus combos con productos Braedt listos para tu carta.',
+      tag: 'QUESOS',
+      highlight: '',
+      caption: 'Ideal para acompñar otros productos braedt',
     },
   ];
   const categories = ['Jamones', 'Salchichas', 'Chorizos', 'Fiambres', 'Pavo', 'Packs'];
