@@ -30,6 +30,11 @@ export default function renderCart() {
                 <span class="text-sm font-semibold text-slate-600">Total a pagar</span>
                 <span class="text-xl font-semibold text-slate-900">${formatPrice(total)}</span>
               </div>
+              <div class="mt-4 space-y-2">
+                <label for="deliveryDate" class="block text-xs font-semibold text-slate-500 uppercase tracking-wide">Fecha de delivery</label>
+                <input id="deliveryDate" type="date" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100" />
+                <p id="deliveryDateMessage" class="hidden text-xs font-medium text-brand-600">Fecha de delivery agendada</p>
+              </div>
               <button id="checkoutBtn" class="mt-4 w-full rounded-xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1" ${detailed.length? '' : 'disabled opacity-40'}>Proceder al pago</button>
               ${!detailed.length ? '<p class="mt-3 text-xs text-slate-500">Agrega productos desde el catálogo para continuar con tu compra.</p>' : '<p class="mt-3 text-xs text-slate-500">Revisaremos tu pedido antes de coordinar la entrega refrigerada.</p>'}
             </div>
@@ -98,4 +103,15 @@ export default function renderCart() {
     });
   });
   document.getElementById('checkoutBtn')?.addEventListener('click', ()=> navigate('/checkout'));
+  const deliveryInput = document.getElementById('deliveryDate');
+  const deliveryMessage = document.getElementById('deliveryDateMessage');
+  if (deliveryInput && deliveryMessage) {
+    deliveryInput.addEventListener('change', () => {
+      if (deliveryInput.value) {
+        deliveryMessage.classList.remove('hidden');
+      } else {
+        deliveryMessage.classList.add('hidden');
+      }
+    });
+  }
 }
