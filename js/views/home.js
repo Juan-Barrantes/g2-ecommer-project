@@ -81,13 +81,6 @@ export default function renderHome() {
                 .join('')}
             </div>
           </div>
-          <div class="hidden md:flex absolute -bottom-6 -left-6 md:-left-[14rem] bg-white rounded-2xl shadow-soft px-4 py-3 border border-slate-200 items-center gap-3">
-            <span class="material-icons-outlined text-brand-600">local_shipping</span>
-            <div>
-              <div class="text-sm font-semibold">Entrega refrigerada</div>
-              <div class="text-xs text-slate-500">Rutas Lima y Callao</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ export default function renderTracking({ query }) {
   const tracking = order.tracking || {};
   const isCancelled = order.status === 'Cancelada';
   const progress = Math.round(trackProgress(tracking.steps, isCancelled) * 100);
-  const mapUrl = buildMapUrl(tracking.route);
+  const mapUrl =  './assets/maps.webp';
 
   app.innerHTML = `
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
@@ -176,9 +176,7 @@ export default function renderTracking({ query }) {
               <span class="material-icons-outlined text-brand-500">map</span>
             </div>
             <div class="mt-4 overflow-hidden rounded-xl border border-slate-100 bg-slate-100">
-              ${mapUrl
-                ? `<img src="${mapUrl}" alt="Mapa de ruta" class="w-full object-cover">`
-                : `<div class="flex h-48 items-center justify-center bg-slate-50 text-slate-400">Mapa no disponible</div>`}
+          <img src="${mapUrl}" alt="Mapa de ruta" class="h-64 w-full object-cover md:h-72">
             </div>
             <div class="mt-3 text-xs text-slate-500">
               <div><span class="font-semibold text-slate-600">Salida:</span> ${tracking.route?.origin?.address || 'Centro logístico'}</div>
