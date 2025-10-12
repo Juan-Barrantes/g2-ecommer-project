@@ -56,7 +56,7 @@ export default function renderCheckout() {
           <div class="flex justify-between text-sm"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
           <div class="flex justify-between text-sm"><span>Envío</span><span>${shipping===0?'Gratis':formatPrice(shipping)}</span></div>
           <div class="mt-2 pt-2 border-t flex justify-between font-semibold"><span>Total</span><span>${formatPrice(subtotal+shipping)}</span></div>
-          <button class="mt-4 w-full px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">Confirmar compra</button>
+          <button class="mt-4 w-full px-4 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700">Confirmar compra</button>
         </section>
       </form>
       <div id="cardModal" class="hidden fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center px-4">

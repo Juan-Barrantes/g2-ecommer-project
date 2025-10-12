@@ -62,7 +62,7 @@ export default function renderAccount() {
             <input id="regAddress" class="w-full px-3 py-2 rounded-xl border border-slate-200" />
           </div>
         </div>
-        <button id="registerBtn" class="w-full px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">Crear cuenta</button>
+        <button id="registerBtn" class="w-full px-4 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700">Crear cuenta</button>
         <p id="registerError" class="hidden text-sm text-red-600"></p>
       </div>
     </div>
