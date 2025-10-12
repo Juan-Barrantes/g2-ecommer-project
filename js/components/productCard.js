@@ -4,6 +4,7 @@ import { showToast } from './toast.js';
 
 export function productCard(p) {
   const minPrice = priceFor(p, p.moq || 1);
+  const imageSrc = p.image && p.image.trim() ? p.image : null;
   const favBaseClass = 'favorite-btn w-11 h-11 flex items-center justify-center rounded-xl border transition duration-150 focus:outline-none focus:ring-2 focus:ring-red-200';
   const favStateClass = p.isFavorite
     ? 'border-red-200 bg-red-50 text-red-500'
@@ -18,14 +19,20 @@ export function productCard(p) {
   <div class="group rounded-2xl bg-white border border-slate-200 hover:border-brand-300 hover:shadow-soft transition overflow-hidden">
     <a href="#/producto/${p.id}" class="block">
       <div class="aspect-[4/3] bg-slate-50 overflow-hidden flex items-center justify-center">
-        <div class="w-full h-full flex flex-col items-center justify-center p-4 text-center">
-          <div class="text-sm text-slate-500">${p.category}</div>
-          <div class="mt-1 font-semibold line-clamp-2">${p.name}</div>
-          <div class="mt-1 text-lg font-bold">${formatPrice(minPrice)}</div>
-        </div>
+        ${
+          imageSrc
+            ? `<img src="${imageSrc}" alt="${p.name}" class="h-full w-full object-cover" loading="lazy" />`
+            : `<div class="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center text-slate-400">
+                <span class="material-icons-outlined text-4xl">inventory_2</span>
+                <span class="text-xs font-medium uppercase tracking-wide">Sin imagen</span>
+              </div>`
+        }
       </div>
       <div class="p-4">
-        <div class="text-xs text-slate-500 mb-1">${p.brand} • ${p.unit}</div>
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-brand-600">${p.category}</div>
+        <div class="mt-1 font-semibold line-clamp-2">${p.name}</div>
+        <div class="mt-1 text-lg font-bold">${formatPrice(minPrice)}</div>
+        <div class="text-xs text-slate-500 mt-1">${p.brand} • ${p.unit}</div>
         <div class="mt-2 flex items-end gap-2">
           <div class="text-xs text-slate-500">MOQ ${p.moq || 1} • Stock ${p.stock}</div>
         </div>

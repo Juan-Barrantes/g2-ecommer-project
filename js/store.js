@@ -2,7 +2,7 @@ const STORAGE_KEYS = {
   user: 'mp_user',
   cart: 'mp_cart',
   orders: 'mp_orders',
-  products: 'mp_products',
+  productFavorites: 'mp_product_favorites',
   users: 'mp_users',
   purchaseOrders: 'mp_pos',
   inbound: 'mp_inbound',
@@ -27,13 +27,24 @@ const state = {
   inbound: [],
   contracts: [],
   chat: load(STORAGE_KEYS.chat, []),
+  productFavorites: new Set(load(STORAGE_KEYS.productFavorites, []).map(String)),
 };
 
+function syncProductFavorites() {
+  save(STORAGE_KEYS.productFavorites, Array.from(state.productFavorites));
+}
+
 function normalizeProducts(list) {
-  return (list || []).map(p => ({
-    ...p,
-    isFavorite: Boolean(p.isFavorite),
-  }));
+  const favorites = state.productFavorites;
+  return (list || []).map(p => {
+    const key = String(p.id);
+    const isFavorite = favorites.has(key) || Boolean(p.isFavorite);
+    if (isFavorite && !favorites.has(key)) favorites.add(key);
+    return {
+      ...p,
+      isFavorite,
+    };
+  });
 }
 
 function addMinutes(date, minutes) {
@@ -137,7 +148,6 @@ export async function initStore() {
   }
 
   await Promise.all([
-    seed(STORAGE_KEYS.products, './data/products.json', []),
     seed(STORAGE_KEYS.users, './data/users.json', []),
     seed(STORAGE_KEYS.cart, './data/cart.json', []),
     seed(STORAGE_KEYS.orders, './data/orders.json', []),
@@ -147,7 +157,19 @@ export async function initStore() {
     seed(STORAGE_KEYS.chat, './data/chat.json', []),
   ]);
 
-  state.products = normalizeProducts(load(STORAGE_KEYS.products, []));
+  async function loadProductsFromSource() {
+    try {
+      const res = await fetch('./data/products.json');
+      const data = await res.json();
+      state.products = normalizeProducts(data);
+    } catch (e) {
+      state.products = normalizeProducts([]);
+    }
+    syncProductFavorites();
+  }
+
+  await loadProductsFromSource();
+
   state.users = load(STORAGE_KEYS.users, []);
   state.cart = load(STORAGE_KEYS.cart, []);
   state.orders = normalizeOrders(load(STORAGE_KEYS.orders, []));
@@ -168,8 +190,6 @@ export async function initStore() {
     }
     return arr;
   }
-  state.products = normalizeProducts(await rehydrateIfEmpty(state.products, STORAGE_KEYS.products, './data/products.json'));
-  save(STORAGE_KEYS.products, state.products);
   state.orders = normalizeOrders(await rehydrateIfEmpty(state.orders, STORAGE_KEYS.orders, './data/orders.json'));
   save(STORAGE_KEYS.orders, state.orders);
   state.users = await rehydrateIfEmpty(state.users, STORAGE_KEYS.users, './data/users.json');
@@ -218,8 +238,15 @@ export function removeFromCart(productId) {
 export function toggleFavorite(productId) {
   const product = state.products.find(p => String(p.id) === String(productId));
   if (!product) return false;
-  product.isFavorite = !product.isFavorite;
-  save(STORAGE_KEYS.products, state.products);
+  const key = String(product.id);
+  if (state.productFavorites.has(key)) {
+    state.productFavorites.delete(key);
+    product.isFavorite = false;
+  } else {
+    state.productFavorites.add(key);
+    product.isFavorite = true;
+  }
+  syncProductFavorites();
   document.dispatchEvent(new CustomEvent('product:favorited', {
     detail: { id: productId, isFavorite: product.isFavorite },
   }));
