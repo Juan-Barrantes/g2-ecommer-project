@@ -202,6 +202,7 @@ export const signOut = () => { state.user = null; save(STORAGE_KEYS.user, null);
 
 export const listProducts = () => state.products;
 export const findProduct = (id) => state.products.find(p => String(p.id) === String(id));
+export const listFavoriteProducts = () => state.products.filter(p => state.productFavorites.has(String(p.id)));
 export const listUsers = () => state.users;
 export const currentUser = () => state.user;
 export const hasRole = (roles) => {

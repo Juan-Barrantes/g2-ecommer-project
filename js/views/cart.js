@@ -1,12 +1,14 @@
-import { cartSummary, updateQty, removeFromCart, shippingFor } from '../store.js';
+import { cartSummary, updateQty, removeFromCart, shippingFor, listFavoriteProducts } from '../store.js';
 import { formatPrice } from '../utils/format.js';
 import { navigate } from '../router.js';
+import { productCard, bindProductCardEvents } from '../components/productCard.js';
 
 export default function renderCart() {
   const app = document.getElementById('app');
   const { detailed, subtotal, items } = cartSummary();
   const shipping = detailed.length ? shippingFor(subtotal) : 0;
   const total = subtotal + shipping;
+  const favorites = listFavoriteProducts().filter(p => !detailed.some(d => d.id === p.id));
 
   app.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -81,6 +83,16 @@ export default function renderCart() {
               </article>`).join('')}
           </section>
         </div>
+        ${favorites.length ? `
+        <section class="mt-4">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-semibold text-slate-900">Tus favoritos</h2>
+            <a href="#/catalogo" class="text-sm font-medium text-brand-600 hover:text-brand-700">Ver catálogo</a>
+          </div>
+          <div id="favoritesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            ${favorites.map(productCard).join('')}
+          </div>
+        </section>` : ''}
       </div>
     </div>
   `;
@@ -113,5 +125,9 @@ export default function renderCart() {
         deliveryMessage.classList.add('hidden');
       }
     });
+  }
+  const favGrid = document.getElementById('favoritesGrid');
+  if (favGrid) {
+    bindProductCardEvents(favGrid);
   }
 }
