@@ -4,24 +4,24 @@ export default function renderHome() {
   const app = document.getElementById('app');
   const carouselItems = [
     {
-      src: '../../../assets/carrusel-1.jpg',
+      src: 'https://braedt.com.pe/storage/d04e9-salchica-blanca.jpg',
       alt: 'chorizos y salchichas en una tabla de madera',
       tag: 'Ofertas',
       highlight: 'Por el mes de octubre dscto. 15%',
       caption: 'Variedad premium para tu mesa',
     },
     {
-      src: '../../../assets/carrusel-2.jpg',
+      src: 'https://braedt.com.pe/storage/14c3d-jamon_pechuga_pavo.jpg',
       alt: 'Jamones Braedt empaquetados para entrega',
       tag: 'Nuevo',
       highlight: 'Entrega refrigerada 24h',
       caption: 'Jamón de pechuga de Pavo',
     },
     {
-      src: '../../../assets/carrusel-3.jpeg',
+      src: 'https://braedt.com.pe/storage/4de69-queso_edam.jpg',
       alt: 'Persona preparando bocadillos con salchichas',
-      tag: 'QUESOS',
-      highlight: '',
+      tag: 'Quesos',
+      highlight: 'Nuevos productos',
       caption: 'Ideal para acompñar otros productos braedt',
     },
   ];
@@ -33,13 +33,13 @@ export default function renderHome() {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
       <div class="grid md:grid-cols-2 gap-8 items-center">
         <div class="hidden md:block">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-medium mb-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-1150 text-brand-1125 text-xs font-medium mb-4">
             <span class="material-icons-outlined text-sm">local_mall</span> Compra directa de Braedt
           </div>
           <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900">Embutidos Braedt, ahora directos a tu negocio</h1>
           <p class="mt-4 text-slate-600 text-lg">Compra jamones, salchichas, chorizos y más con precios mayoristas, escalas por volumen y entrega refrigerada.</p>
           <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#/catalogo" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-center">Ver catálogo</a>
+            <a href="#/catalogo" class="px-6 py-3 rounded-xl bg-brand-1050 hover:bg-brand-700 text-white font-semibold text-center">Ver catálogo</a>
             <button id="ctaLearnDesktop" class="px-6 py-3 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold">Conocer beneficios</button>
           </div>
           <div class="mt-6 grid grid-cols-3 gap-4 text-sm text-slate-600">
@@ -88,14 +88,14 @@ export default function renderHome() {
   <section class="md:hidden bg-white/80 border-t border-brand-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-medium mb-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-1150 text-brand-1125 text-xs font-medium mb-4">
           <span class="material-icons-outlined text-sm">local_mall</span> Compra directa de Braedt
         </div>
         <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Embutidos Braedt, ahora directos a tu negocio</h1>
         <p class="mt-3 text-slate-600 text-base">Compra jamones, salchichas, chorizos y más con precios mayoristas, escalas por volumen y entrega refrigerada.</p>
       </div>
       <div class="flex flex-col sm:flex-row gap-3">
-        <a href="#/catalogo" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-center">Ver catálogo</a>
+        <a href="#/catalogo" class="px-6 py-3 rounded-xl bg-brand-1050 hover:bg-brand-700 text-white font-semibold text-center">Ver catálogo</a>
         <button id="ctaLearnMobile" class="px-6 py-3 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold">Conocer beneficios</button>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-600">
