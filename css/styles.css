@@ -38,7 +38,7 @@ html, body {
 .app-footer { background: transparent; }
 
 .nav-link.is-active,
-.nav-link.is-active .material-icons-outlined { color: #e11d48; }
+.nav-link.is-active .material-icons-outlined { color: #f7c466; }
 
 .mobile-tab { pointer-events: none; }
 

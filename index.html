@@ -19,11 +19,16 @@
                 200: '#c6dfcf',
                 300: '#9ec3ac',
                 400: '#6da382',
-                500: '#3f8560',
+                500: '#3f8560', 
                 600: '#1B593C',
                 700: '#13442d',
                 800: '#0c2f1f',
                 900: '#081f15',
+                950: '#3D7354', // Verde-Braedt
+                1000: '#A67417', // Dorado
+                1050: '#A61508', // Rojo-oscuro
+                1100: '#BF0F0F', // Rojo-vivo
+                1150: '#F2F2F2'  // Blanco
               },
             },
             boxShadow: {
@@ -44,41 +49,46 @@
   <body class="app-body bg-slate-100 text-slate-800 antialiased">
     <div class="app-shell">
       <!-- Top Notification -->
-      <div id="top-banner" class="hidden md:flex items-center justify-center gap-2 bg-brand-600 text-white text-sm py-2">
+      <div id="top-banner" class="hidden md:flex items-center justify-center gap-2 bg-brand-1050 text-white text-sm py-2">
         <span class="material-icons-outlined text-base">ac_unit</span>
         <span>Compra directa de Braedt • Entrega refrigerada • Envío gratis desde S/ 600</span>
       </div>
 
       <!-- Header / Navbar -->
-      <header class="app-header sticky top-0 z-40 border-b border-slate-200">
+      <header class="app-header sticky top-0 z-40 border-b bg-brand-700 border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between h-16">
-            <a href="#/" class="flex items-center gap-2 group">
-              <img src="./assets/logo/logo-braedt.jpeg" alt="Braedt" class="h-10 w-10 rounded-full object-cover border border-slate-200 shadow-sm" />
-              <div class="text-lg font-semibold tracking-tight">Braedt Directo</div>
+            <a href="#/" class="flex items-center gap-2 group ">
+              <div class="flex w-50 h-12">
+                <img src="https://braedt.com.pe/build/assets/braedt-logo-BLzunipx.svg" alt="Braedt"  class="h-full w-full object-contain"/>
+                <img src="https://braedt.com.pe/build/assets/text-juntos-sabe-mejor-Due7Bila.png" class="m-2 h-8 object-contain">
+              </div>
+              
             </a>
             <div class="hidden md:flex items-center gap-6 w-[48%]">
               <div class="flex-1 relative">
                 <span class="material-icons-outlined absolute left-3 top-2.5 text-slate-400">search</span>
                 <input id="globalSearch" type="search" placeholder="Buscar productos, marcas, categorías..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-white" />
               </div>
-              <a href="#/catalogo" data-route="/catalogo" class="nav-link nav-shop text-sm font-medium text-slate-700 hover:text-brand-700">Catálogo</a>
-              <a href="#/ordenes" data-route="/ordenes" class="nav-link nav-shop text-sm font-medium text-slate-700 hover:text-brand-700">Órdenes</a>
-              <a href="#/chat" data-route="/chat" class="nav-link text-sm font-medium text-slate-700 hover:text-brand-700">Chat</a>
-              <a href="#/panel" data-route="/panel" class="nav-link nav-panel hidden text-sm font-medium text-slate-700 hover:text-brand-700">Panel</a>
+              <a href="#/catalogo" data-route="/catalogo" class="nav-link nav-shop text-sm font-medium text-slate-200 hover:text-brand-1000">Catálogo</a>
+              <a href="#/ordenes" data-route="/ordenes" class="nav-link nav-shop text-sm font-medium text-slate-200 hover:text-brand-1000">Órdenes</a>
+              <a href="#/chat" data-route="/chat" class="nav-link text-sm font-medium text-slate-200 hover:text-brand-1000">Chat</a>
+              <a href="#/panel" data-route="/panel" class="nav-link nav-panel hidden text-sm font-medium text-slate-200 hover:text-brand-1000">Panel</a>
             </div>
             <div class="flex items-center gap-3">
-              <a href="#/cuenta" data-route="/cuenta" class="nav-link flex items-center gap-2 text-slate-700 hover:text-brand-700">
+              <a href="#/cuenta" data-route="/cuenta" class="nav-link flex items-center gap-2 text-slate-200 hover:text-brand-1000">
                 <span class="material-icons-outlined">account_circle</span>
                 <span class="hidden sm:block text-sm font-medium" id="navUserName">Mi cuenta</span>
               </a>
-              <a href="#/carrito" data-route="/carrito" class="nav-link nav-shop relative flex items-center gap-2 text-slate-700 hover:text-brand-700">
-                <span class="material-icons-outlined">shopping_cart</span>
-                <span class="hidden sm:block text-sm font-medium">Carrito</span>
-                <span id="cartBadge" class="absolute -top-2 -right-2 h-5 min-w-[20px] px-1 rounded-full bg-brand-600 text-white text-xs flex items-center justify-center">0</span>
+              <a href="#/carrito" data-route="/carrito" class="nav-link nav-shop  flex items-center gap-2 text-slate-200 hover:text-brand-1000">
+                <span class="relative inline-flex items-center justify-center"> 
+                    <span class="material-icons-outlined">shopping_cart</span>
+                    <span id="cartBadge" class="absolute -top-2 -right-3 h-5 min-w-[20px] px-1 rounded-full bg-brand-1100 text-white text-xs flex items-center justify-center">0</span>
+                </span>
+               <span class="hidden sm:block text-sm font-medium">Carrito</span>
               </a>
-              <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-100">
-                <span class="material-icons-outlined">menu</span>
+              <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-200 hover:bg-brand-800 ">
+                <span class="material-icons-outlined mt-1">menu</span>
               </button>
             </div>
           </div>
@@ -89,12 +99,12 @@
             <span class="material-icons-outlined text-slate-400">search</span>
             <input id="globalSearchMobile" type="search" placeholder="Buscar en el catálogo..." class="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white" />
           </div>
-          <nav class="px-4 pb-3 flex items-center gap-4 text-sm">
-            <a href="#/catalogo" data-route="/catalogo" class="nav-link nav-shop px-3 py-2 rounded-lg hover:bg-slate-100">Catálogo</a>
-            <a href="#/ordenes" data-route="/ordenes" class="nav-link nav-shop px-3 py-2 rounded-lg hover:bg-slate-100">Órdenes</a>
-            <a href="#/chat" data-route="/chat" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100">Chat</a>
-            <a href="#/panel" data-route="/panel" class="nav-link nav-panel hidden px-3 py-2 rounded-lg hover:bg-slate-100">Panel</a>
-            <a href="#/cuenta" data-route="/cuenta" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100">Cuenta</a>
+          <nav class="px-4 pb-3 flex items-center gap-4 text-sm justify-center">
+            <a href="#/catalogo" data-route="/catalogo" class="nav-link nav-shop px-3 py-2 rounded-lg text-slate-200 min-w-[15vw] text-center hover:bg-brand-900">Catálogo</a>
+            <a href="#/ordenes" data-route="/ordenes" class="nav-link nav-shop px-3 py-2 rounded-lg text-slate-200 min-w-[15vw] text-center hover:bg-brand-900">Órdenes</a>
+            <a href="#/chat" data-route="/chat" class="nav-link px-3 py-2 rounded-lg text-slate-200 min-w-[15vw] text-center hover:bg-brand-900">Chat</a>
+            <a href="#/panel" data-route="/panel" class="nav-link nav-panel hidden px-3 py-2 rounded-lg min-w-[15vw] text-slate-200 text-center  hover:bg-brand-900">Panel</a>
+            <a href="#/cuenta" data-route="/cuenta" class="nav-link px-3 py-2 rounded-lg text-slate-200 min-w-[15vw] text-center  hover:bg-brand-900">Cuenta</a>
           </nav>
         </div>
       </header>
