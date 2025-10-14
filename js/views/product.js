@@ -10,16 +10,20 @@ export default function renderProduct({ segments }) {
     app.innerHTML = `<div class="max-w-7xl mx-auto p-6">Producto no encontrado</div>`;
     return;
   }
+  const imageSrc = p.image && p.image.trim() ? p.image.trim() : null;
   const minPrice = priceFor(p, p.moq||1);
   app.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid md:grid-cols-2 gap-8">
       <div>
-        <div class="rounded-2xl border border-slate-200 w-full aspect-[4/3] bg-slate-50 flex items-center justify-center text-center p-6">
-          <div>
-            <div class="text-sm text-slate-500">${p.category}</div>
-            <h2 class="text-xl font-bold mt-2">${p.name}</h2>
-            <div class="mt-2 text-2xl font-extrabold">${formatPrice(minPrice)}</div>
-          </div>
+        <div class="rounded-2xl border border-slate-200 w-full aspect-[4/3] bg-white overflow-hidden">
+          ${
+            imageSrc
+              ? `<img src="${imageSrc}" alt="${p.name}" class="h-full w-full object-cover" loading="lazy" />`
+              : `<div class="h-full w-full flex flex-col items-center justify-center gap-3 bg-slate-50 text-slate-400">
+                  <span class="material-icons-outlined text-4xl">inventory_2</span>
+                  <span class="text-xs font-semibold uppercase tracking-wide">Sin imagen</span>
+                </div>`
+          }
         </div>
       </div>
       <div>
