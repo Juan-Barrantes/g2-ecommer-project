@@ -42,6 +42,13 @@ html, body {
 
 .mobile-tab { pointer-events: none; }
 
+.background-brand{
+  background-image: url("https://braedt.com.pe/build/assets/bg-main-S6K9OBy5.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover;       
+  background-position: center;  
+}
+
 .mobile-tab__inner {
   pointer-events: auto;
   margin: 0 auto;

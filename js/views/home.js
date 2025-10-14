@@ -28,32 +28,50 @@ export default function renderHome() {
   const categories = ['Jamones', 'Salchichas', 'Chorizos', 'Fiambres', 'Pavo', 'Packs'];
 
   app.innerHTML = `
-  <section class="relative overflow-hidden">
+  <section class="relative overflow-hidden background-brand">
     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-white"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <div class="mx-auto">
       <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div class="hidden md:block">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-1150 text-brand-1125 text-xs font-medium mb-4">
-            <span class="material-icons-outlined text-sm">local_mall</span> Compra directa de Braedt
+        <div class="max-w-7xl hidden md:block px-4 sm:px-8 md:px-12 lg:px-24 xl:px-48 py-24 md:py-36">
+
+          <div class="flex mb-5 items-center text-brand-1100 font-semibold">
+            <div class="flex-1 border-t-2 border-brand-1100"></div>
+            <span class="px-6 text-xs">X</span>
+            <div class="flex-1 border-t-2 border-brand-1100"></div>
           </div>
-          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900">Embutidos Braedt, ahora directos a tu negocio</h1>
+
+          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight  text-brand-600 ">Embutidos Braedt, ahora directos a tu negocio</h1>
+          
+         
           <p class="mt-4 text-slate-600 text-lg">Compra jamones, salchichas, chorizos y más con precios mayoristas, escalas por volumen y entrega refrigerada.</p>
+
           <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#/catalogo" class="px-6 py-3 rounded-xl bg-brand-1050 hover:bg-brand-700 text-white font-semibold text-center">Ver catálogo</a>
-            <button id="ctaLearnDesktop" class="px-6 py-3 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold">Conocer beneficios</button>
+            <a href="#/catalogo"class="text-sm px-6 py-3 border border-2 border-brand-600 text-brand-600 font-semibold uppercase text-center bg-transparent hover:bg-brand-700 hover:text-white transition-colors duration-300">Ver catálogo</a>
+            <button id="ctaLearnDesktop" 
+                    class="text-sm px-6 py-3 border border-2 border-brand-600  font-semibold uppercase text-center bg-brand-700 text-white hover:bg-transparent hover:text-brand-600 transition-colors duration-300">
+                    Conocer beneficios
+            </button>
           </div>
+          
           <div class="mt-6 grid grid-cols-3 gap-4 text-sm text-slate-600">
             <div class="flex items-center gap-2"><span class="material-icons-outlined text-brand-600">sell</span>Precios mayoristas</div>
             <div class="flex items-center gap-2"><span class="material-icons-outlined text-brand-600">ac_unit</span>Entrega refrigerada</div>
             <div class="flex items-center gap-2"><span class="material-icons-outlined text-brand-600">verified</span>Calidad Braedt</div>
           </div>
+
+          <div class="flex mt-5 items-center text-brand-1100 font-semibold">
+            <div class="flex-1 border-t-2 border-brand-1100"></div>
+            <span class="px-6 text-xs">X</span>
+            <div class="flex-1 border-t-2 border-brand-1100"></div>
+          </div>
+         
         </div>
         <div class="relative">
-          <div id="homeCarousel" class="relative overflow-hidden rounded-3xl shadow-soft">
+          <div id="homeCarousel" class="relative overflow-hidden w-full h-full">
             ${carouselItems
               .map(
                 (item, index) => `
-            <div class="carousel-slide ${index === 0 ? 'block' : 'hidden'} relative h-[280px] sm:h-[360px] md:h-[420px]" data-carousel-slide="${index}">
+            <div class="carousel-slide ${index === 0 ? 'block' : 'hidden'} relative h-[280px] sm:h-[360px] md:h-[90vh]" data-carousel-slide="${index}">
               <img class="absolute inset-0 h-full w-full object-cover" src="${item.src}" alt="${item.alt}" loading="lazy" />
               <div class="absolute inset-0 bg-slate-900/20"></div>
               <div class="absolute bottom-6 left-6 right-6 text-white drop-shadow-lg">
@@ -61,7 +79,7 @@ export default function renderHome() {
                   <span class="inline-flex items-center justify-center rounded-full border border-white/40 bg-black/30 px-2 py-0.5">${item.tag}</span>
                   <span>${item.highlight}</span>
                 </div>
-                <p class="mt-2 text-base md:text-lg font-semibold leading-snug">${item.caption}</p>
+                <p class="mt-1 mb-2 text-base md:text-lg font-semibold leading-snug">${item.caption}</p>
               </div>
             </div>`
               )
@@ -76,7 +94,7 @@ export default function renderHome() {
               ${carouselItems
                 .map(
                   (_item, index) => `
-              <button type="button" class="carousel-indicator h-2.5 w-2.5 rounded-full bg-white/50 ${index === 0 ? 'ring-2 ring-offset-2 ring-white bg-white' : ''}" data-carousel-indicator="${index}" aria-label="Ir a la diapositiva ${index + 1}"></button>`
+              <button type="button" class="carousel-indicator  h-1.5 w-1.5 rounded-full bg-white/50 ${index === 0 ? 'ring-2 ring-offset-2 ring-white bg-white' : ''}" data-carousel-indicator="${index}" aria-label="Ir a la diapositiva ${index + 1}"></button>`
                 )
                 .join('')}
             </div>
@@ -85,23 +103,38 @@ export default function renderHome() {
       </div>
     </div>
   </section>
-  <section class="md:hidden bg-white/80 border-t border-brand-50">
+
+
+  <section class="md:hidden bg-white/80 background-brand">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+          
+      <div class="flex items-center text-brand-1100 font-semibold">
+        <div class="flex-1 border-t-2 border-brand-1100"></div>
+        <span class="px-6 text-xs">X</span>
+        <div class="flex-1 border-t-2 border-brand-1100"></div>
+      </div>
+      
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-1150 text-brand-1125 text-xs font-medium mb-4">
-          <span class="material-icons-outlined text-sm">local_mall</span> Compra directa de Braedt
-        </div>
-        <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Embutidos Braedt, ahora directos a tu negocio</h1>
+        <h1 class="text-4xl font-extrabold tracking-tight text-brand-600">Embutidos Braedt, ahora directos a tu negocio</h1>
         <p class="mt-3 text-slate-600 text-base">Compra jamones, salchichas, chorizos y más con precios mayoristas, escalas por volumen y entrega refrigerada.</p>
       </div>
       <div class="flex flex-col sm:flex-row gap-3">
-        <a href="#/catalogo" class="px-6 py-3 rounded-xl bg-brand-1050 hover:bg-brand-700 text-white font-semibold text-center">Ver catálogo</a>
-        <button id="ctaLearnMobile" class="px-6 py-3 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold">Conocer beneficios</button>
+        <a href="#/catalogo"class="text-sm px-6 py-3 border border-2 border-brand-600 text-brand-600 font-semibold uppercase text-center bg-transparent hover:bg-brand-700 hover:text-white transition-colors duration-300">Ver catálogo</a>
+            <button id="ctaLearnDesktop" 
+                    class="text-sm px-6 py-3 border border-2 border-brand-600  font-semibold uppercase text-center bg-brand-700 text-white hover:bg-transparent hover:text-brand-600 transition-colors duration-300">
+                    Conocer beneficios
+            </button>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-600">
-        <div class="flex items-center gap-2 rounded-2xl bg-slate-50 px-4 py-3"><span class="material-icons-outlined text-brand-600">sell</span>Precios mayoristas</div>
-        <div class="flex items-center gap-2 rounded-2xl bg-slate-50 px-4 py-3"><span class="material-icons-outlined text-brand-600">ac_unit</span>Entrega refrigerada</div>
-        <div class="flex items-center gap-2 rounded-2xl bg-slate-50 px-4 py-3"><span class="material-icons-outlined text-brand-600">verified</span>Calidad Braedt</div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 text-sm text-slate-600">
+        <div class="flex items-center gap-1 rounded-2xl bg-transparent px-4 py-3"><span class="material-icons-outlined text-brand-600">sell</span>Precios mayoristas</div>
+        <div class="flex items-center gap-1 rounded-2xl bg-transparent px-4 py-3"><span class="material-icons-outlined text-brand-600">ac_unit</span>Entrega refrigerada</div>
+        <div class="flex items-center gap-1 rounded-2xl bg-transparent px-4 py-3"><span class="material-icons-outlined text-brand-600">verified</span>Calidad Braedt</div>
+      </div>
+
+      <div class="flex items-center text-brand-1100 font-semibold">
+        <div class="flex-1 border-t-2 border-brand-1100"></div>
+        <span class="px-6 text-xs">X</span>
+        <div class="flex-1 border-t-2 border-brand-1100"></div>
       </div>
     </div>
   </section>
