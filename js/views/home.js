@@ -25,7 +25,29 @@ export default function renderHome() {
       caption: 'Ideal para acompñar otros productos braedt',
     },
   ];
-  const categories = ['Jamones', 'Salchichas', 'Chorizos', 'Fiambres', 'Pavo', 'Packs'];
+  const categories = [{
+      description: 'Jamones',
+      image: 'https://braedt.com.pe/storage/31697-lomo-ahumado.jpg'
+    }, 
+    {
+      description: 'Salchichas', 
+      image: 'https://braedt.com.pe/storage/b545d-salchicha-vienesa.jpg'
+    }, 
+    { description: 'Chorizos',
+      image: 'https://braedt.com.pe/storage/b6ae5-salchicha-de-huacho.jpg'
+    }, 
+    {
+      description: 'Fiambres',
+      image: 'https://braedt.com.pe/storage/5b9f0-cabanossi.jpg'
+    }, 
+    {
+      description: 'Pavo',
+      image:'https://braedt.com.pe/storage/dc387-jamon-del-pais-artesanal.jpg'
+    }, 
+    { 
+      description: 'Packs',
+      image:'https://braedt.com.pe/storage/5d5fa-pack_york_gouda.jpg'
+    }];
 
   app.innerHTML = `
   <section class="relative overflow-hidden background-brand">
@@ -40,8 +62,12 @@ export default function renderHome() {
             <div class="flex-1 border-t-2 border-brand-1100"></div>
           </div>
 
-          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight  text-brand-600 ">Embutidos Braedt, ahora directos a tu negocio</h1>
-          
+          <h1 class="pt-sans-bold text-3xl md:text-5xl font-extrabold tracking-normal uppercase text-brand-600 text-center">Embutidos Braedt, directo a tu mesa</h1>
+             <div class="flex mt-5 items-center text-brand-1100 font-semibold">
+            <div class="flex-1 border-t-2 border-brand-1100"></div>
+            <span class="px-6 text-xs">X</span>
+            <div class="flex-1 border-t-2 border-brand-1100"></div>
+          </div>
          
           <p class="mt-4 text-slate-600 text-lg">Compra jamones, salchichas, chorizos y más con precios mayoristas, escalas por volumen y entrega refrigerada.</p>
 
@@ -59,11 +85,7 @@ export default function renderHome() {
             <div class="flex items-center gap-2"><span class="material-icons-outlined text-brand-600">verified</span>Calidad Braedt</div>
           </div>
 
-          <div class="flex mt-5 items-center text-brand-1100 font-semibold">
-            <div class="flex-1 border-t-2 border-brand-1100"></div>
-            <span class="px-6 text-xs">X</span>
-            <div class="flex-1 border-t-2 border-brand-1100"></div>
-          </div>
+       
          
         </div>
         <div class="relative">
@@ -84,10 +106,10 @@ export default function renderHome() {
             </div>`
               )
               .join('')}
-            <button id="carouselPrev" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-slate-700 shadow-soft focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <button id="carouselPrev" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full  text-white shadow-soft focus:outline-none focus:ring-2 focus:ring-brand-100">
               <span class="material-icons-outlined">chevron_left</span>
             </button>
-            <button id="carouselNext" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-slate-700 shadow-soft focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <button id="carouselNext" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full  text-white shadow-soft focus:outline-none focus:ring-2 focus:ring-brand-100">
               <span class="material-icons-outlined">chevron_right</span>
             </button>
             <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
@@ -138,19 +160,40 @@ export default function renderHome() {
       </div>
     </div>
   </section>
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <h2 class="text-xl font-bold mb-4">Empieza por categorías</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+  <section class="background-brand-2">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 ">
+    <div class="w-full px-2 py-2 mb-4 mt-4 items-center text-center overflow-hidden pt-sans-regular">
+      <img
+        src="/assets/texts/text-nuestros-productos-white.png"
+        class="mx-auto w-48 sm:w-56 md:w-64 lg:w-72" 
+        >
+      <p class="text-white" >Explora todas nuestras categorias</p>
+    </div>  
+  
+    <div class="grid grid-cols-1 px-2 py-2 sm:grid-cols-2 md:grid-cols-3 gap-2 bg-white rounded-lg">
       ${categories
         .map(
           (c) => `
-        <a href="#/catalogo?cat=${encodeURIComponent(c)}" class="rounded-2xl border border-slate-200 bg-white px-4 py-6 text-center hover:border-brand-300 hover:shadow-soft transition">
-          <div class="material-icons-outlined text-brand-600">category</div>
-          <div class="mt-2 text-sm font-medium">${c}</div>
-        </a>`
+          
+           <a 
+              href="#/catalogo?cat=${encodeURIComponent(c.description)}"
+              style="background-image: url('${c.image}')"  
+              class="relative  border border-slate-200 bg-cover bg-center bg-no-repeat h-64 w-full overflow-hidden hover:border-brand-300 hover:shadow-soft transition  transition-transform duration-500 ease-in-out hover:scale-110"
+            >
+    
+            <div class="absolute inset-0 bg-black/20"></div>
+
+            <div class="absolute bottom-0 inset-x-0 bg-brand-600/80 px-2 text-white text-left py-3">
+              <div class="font-semibold text-sm">| ${c.description}</div>
+            </div>
+          </a>
+        
+        `
         )
         .join('')}
     </div>
+  </div>
+  
   </section>`;
 
   const slides = Array.from(document.querySelectorAll('[data-carousel-slide]'));

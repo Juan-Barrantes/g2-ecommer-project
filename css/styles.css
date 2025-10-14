@@ -49,6 +49,23 @@ html, body {
   background-position: center;  
 }
 
+.background-brand-2{
+  position: relative;
+  background-image: url("https://braedt.com.pe/build/assets/bg-main-S6K9OBy5.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.background-brand-2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.15); 
+  z-index: 0; 
+}
+
 .mobile-tab__inner {
   pointer-events: auto;
   margin: 0 auto;
@@ -125,6 +142,32 @@ html, body {
 
 .typing-indicator span:nth-child(2) { animation-delay: .2s; }
 .typing-indicator span:nth-child(3) { animation-delay: .4s; }
+
+.pt-sans-regular {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-sans-bold {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-sans-regular-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-sans-bold-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
 
 @keyframes typing-bounce {
   0%, 80%, 100% { opacity: .25; transform: translateY(0); }
