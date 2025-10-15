@@ -59,6 +59,20 @@ export default function renderOrders() {
                   ${o.customer?.phone ? `<div class="text-xs text-slate-500">Tel: ${o.customer.phone}</div>` : ''}
                   ${o.customer?.address ? `<div class="text-xs text-slate-500">${o.customer.address}</div>` : ''}
                   ${o.payment ? `<div class="mt-2 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-600">Pago: ${paymentLabels[o.payment] || o.payment}</div>` : ''}
+                  ${o.fulfillment ? `
+                    <div class="mt-3 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">
+                      <div class="font-semibold text-slate-700">Modalidad: ${o.fulfillment.method === 'pickup' ? 'Recojo en tienda' : 'Delivery'}</div>
+                      ${o.fulfillment.method === 'pickup' && o.fulfillment.pickupStore ? `
+                        <div class="mt-1 text-slate-600">
+                          <div class="font-semibold text-slate-700">${o.fulfillment.pickupStore.name || 'Tienda seleccionada'}</div>
+                          ${o.fulfillment.pickupStore.address ? `<div class="text-[11px] text-slate-500">${o.fulfillment.pickupStore.address}</div>` : ''}
+                          ${o.fulfillment.pickupStore.hours ? `<div class="text-[11px] text-slate-500">Horario: ${o.fulfillment.pickupStore.hours}</div>` : ''}
+                          ${o.fulfillment.pickupStore.phone ? `<div class="text-[11px] text-slate-500">Tel: ${o.fulfillment.pickupStore.phone}</div>` : ''}
+                        </div>
+                      ` : ''}
+                      ${o.fulfillment.method !== 'pickup' && o.fulfillment.deliveryDate ? `<div class="mt-1 text-slate-600">Fecha solicitada: ${o.fulfillment.deliveryDate}</div>` : ''}
+                    </div>
+                  ` : ''}
                 </div>
                 <div class="grid gap-1">
                   <div class="flex justify-between text-xs text-slate-500"><span>Subtotal</span><span>${formatPrice(o.totals.subtotal)}</span></div>

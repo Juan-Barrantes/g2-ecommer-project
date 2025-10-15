@@ -1,4 +1,4 @@
-import { cartSummary, updateQty, removeFromCart, shippingFor, listFavoriteProducts } from '../store.js';
+import { cartSummary, updateQty, removeFromCart, shippingFor, listFavoriteProducts, getFulfillmentOptions, setFulfillmentOptions } from '../store.js';
 import { formatPrice } from '../utils/format.js';
 import { navigate } from '../router.js';
 import { productCard, bindProductCardEvents } from '../components/productCard.js';
@@ -6,7 +6,9 @@ import { productCard, bindProductCardEvents } from '../components/productCard.js
 export default function renderCart() {
   const app = document.getElementById('app');
   const { detailed, subtotal, items } = cartSummary();
-  const shipping = detailed.length ? shippingFor(subtotal) : 0;
+  const fulfillment = getFulfillmentOptions();
+  const isDelivery = fulfillment.method !== 'pickup';
+  const shipping = detailed.length && isDelivery ? shippingFor(subtotal) : 0;
   const total = subtotal + shipping;
   const favorites = listFavoriteProducts().filter(p => !detailed.some(d => d.id === p.id));
 
@@ -26,17 +28,24 @@ export default function renderCart() {
               </div>
               <div class="mt-4 space-y-3 text-sm">
                 <div class="flex justify-between"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
+                <div class="flex justify-between"><span>Modalidad</span><span>${isDelivery ? 'Delivery' : 'Recojo en tienda'}</span></div>
                 <div class="flex justify-between"><span>Envío</span><span>${shipping === 0 ? 'Gratis' : formatPrice(shipping)}</span></div>
               </div>
               <div class="mt-4 flex items-center justify-between border-t pt-4">
                 <span class="text-sm font-semibold text-slate-600">Total a pagar</span>
                 <span class="text-xl font-semibold text-slate-900">${formatPrice(total)}</span>
               </div>
-              <div class="mt-4 space-y-2">
-                <label for="deliveryDate" class="block text-xs font-semibold text-slate-500 uppercase tracking-wide">Fecha de delivery</label>
-                <input id="deliveryDate" type="date" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100" />
-                <p id="deliveryDateMessage" class="hidden text-xs font-medium text-brand-600">Fecha de delivery agendada</p>
-              </div>
+              ${isDelivery ? `
+                <div class="mt-4 space-y-2">
+                  <label for="deliveryDate" class="block text-xs font-semibold text-slate-500 uppercase tracking-wide">Fecha de delivery</label>
+                  <input id="deliveryDate" type="date" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100" value="${fulfillment.deliveryDate || ''}" />
+                  <p id="deliveryDateMessage" class="${fulfillment.deliveryDate ? '' : 'hidden'} text-xs font-medium text-brand-600">Fecha de delivery agendada</p>
+                </div>
+              ` : `
+                <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+                  Recogerás tu pedido en tienda. Podrás confirmar la tienda durante el pago.
+                </div>
+              `}
               <button id="checkoutBtn" class="mt-4 w-full rounded-xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1" ${detailed.length? '' : 'disabled opacity-40'}>Proceder al pago</button>
               ${!detailed.length ? '<p class="mt-3 text-xs text-slate-500">Agrega productos desde el catálogo para continuar con tu compra.</p>' : '<p class="mt-3 text-xs text-slate-500">Revisaremos tu pedido antes de coordinar la entrega refrigerada.</p>'}
             </div>
@@ -119,7 +128,9 @@ export default function renderCart() {
   const deliveryMessage = document.getElementById('deliveryDateMessage');
   if (deliveryInput && deliveryMessage) {
     deliveryInput.addEventListener('change', () => {
-      if (deliveryInput.value) {
+      const value = deliveryInput.value;
+      setFulfillmentOptions({ deliveryDate: value });
+      if (value) {
         deliveryMessage.classList.remove('hidden');
       } else {
         deliveryMessage.classList.add('hidden');

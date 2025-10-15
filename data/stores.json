@@ -1,0 +1,26 @@
+[
+  {
+    "id": "S1",
+    "name": "Braedt Miraflores",
+    "address": "Av. La Mar 1234, Miraflores",
+    "district": "Miraflores",
+    "hours": "Lun-Sáb 8:00-19:00",
+    "phone": "01 400 1234"
+  },
+  {
+    "id": "S2",
+    "name": "Braedt Surco",
+    "address": "Av. Primavera 567, Santiago de Surco",
+    "district": "Santiago de Surco",
+    "hours": "Lun-Sáb 9:00-20:00",
+    "phone": "01 455 6789"
+  },
+  {
+    "id": "S3",
+    "name": "Braedt Los Olivos",
+    "address": "Av. Universitaria 890, Los Olivos",
+    "district": "Los Olivos",
+    "hours": "Lun-Dom 9:00-21:00",
+    "phone": "01 489 5566"
+  }
+]

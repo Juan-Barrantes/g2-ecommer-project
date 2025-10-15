@@ -67,6 +67,17 @@ export default function renderTracking({ query }) {
   const isCancelled = order.status === 'Cancelada';
   const progress = Math.round(trackProgress(tracking.steps, isCancelled) * 100);
   const mapUrl =  './assets/maps.webp';
+  const fulfillment = order.fulfillment || {};
+  const isPickupMode = fulfillment.method === 'pickup';
+  const fulfillmentLabel = isPickupMode ? 'Recojo en tienda' : 'Delivery';
+  const pickupInfo = isPickupMode && fulfillment.pickupStore ? `
+      <div class="mt-1 text-xs text-slate-500">
+        <div class="font-semibold text-slate-600">${fulfillment.pickupStore.name || 'Tienda seleccionada'}</div>
+        ${fulfillment.pickupStore.address ? `<div>${fulfillment.pickupStore.address}</div>` : ''}
+        ${fulfillment.pickupStore.hours ? `<div>Horario: ${fulfillment.pickupStore.hours}</div>` : ''}
+      </div>
+    ` : '';
+  const deliveryDateInfo = !isPickupMode && fulfillment.deliveryDate ? `<div class="mt-1 text-xs text-slate-500">Fecha solicitada: ${fulfillment.deliveryDate}</div>` : '';
 
   app.innerHTML = `
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
@@ -147,8 +158,14 @@ export default function renderTracking({ query }) {
               <div>
                 <div class="text-xs uppercase tracking-wide text-slate-400">Repartidor</div>
                 <div class="font-semibold text-slate-700">${tracking.driver?.name || 'Asignando...'}</div>
-                ${tracking.driver?.phone ? `<div class="text-xs text-slate-500">Cel: ${tracking.driver.phone}</div>` : ''}
-                ${tracking.driver?.vehicle ? `<div class="text-xs text-slate-500">${tracking.driver.vehicle}</div>` : ''}
+              ${tracking.driver?.phone ? `<div class="text-xs text-slate-500">Cel: ${tracking.driver.phone}</div>` : ''}
+              ${tracking.driver?.vehicle ? `<div class="text-xs text-slate-500">${tracking.driver.vehicle}</div>` : ''}
+            </div>
+              <div>
+                <div class="text-xs uppercase tracking-wide text-slate-400">Modalidad</div>
+                <div class="font-semibold text-slate-700">${fulfillmentLabel}</div>
+                ${pickupInfo}
+                ${deliveryDateInfo}
               </div>
               <div class="rounded-xl bg-slate-50 p-3 text-xs text-slate-500">
                 <div class="font-semibold text-slate-600">Resumen de pago</div>

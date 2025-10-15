@@ -8,6 +8,14 @@ const STORAGE_KEYS = {
   inbound: 'mp_inbound',
   contracts: 'mp_contracts',
   chat: 'mp_chat',
+  stores: 'mp_stores',
+  fulfillment: 'mp_fulfillment',
+};
+
+const DEFAULT_FULFILLMENT = {
+  method: 'delivery',
+  deliveryDate: '',
+  pickupStore: null,
 };
 
 function load(key, fallback) {
@@ -28,6 +36,8 @@ const state = {
   contracts: [],
   chat: load(STORAGE_KEYS.chat, []),
   productFavorites: new Set(load(STORAGE_KEYS.productFavorites, []).map(String)),
+  stores: [],
+  fulfillment: load(STORAGE_KEYS.fulfillment, DEFAULT_FULFILLMENT),
 };
 
 function syncProductFavorites() {
@@ -155,6 +165,7 @@ export async function initStore() {
     seed(STORAGE_KEYS.inbound, './data/inbound.json', []),
     seed(STORAGE_KEYS.contracts, './data/contracts.json', []),
     seed(STORAGE_KEYS.chat, './data/chat.json', []),
+    seed(STORAGE_KEYS.stores, './data/stores.json', []),
   ]);
 
   async function loadProductsFromSource() {
@@ -177,6 +188,18 @@ export async function initStore() {
   state.inbound = load(STORAGE_KEYS.inbound, []);
   state.contracts = load(STORAGE_KEYS.contracts, []);
   state.chat = load(STORAGE_KEYS.chat, []);
+  state.stores = load(STORAGE_KEYS.stores, []);
+  if (!state.fulfillment || typeof state.fulfillment !== 'object') {
+    state.fulfillment = { ...DEFAULT_FULFILLMENT };
+  } else {
+    state.fulfillment = {
+      ...DEFAULT_FULFILLMENT,
+      ...state.fulfillment,
+      pickupStore: state.fulfillment?.pickupStore || null,
+      method: state.fulfillment?.method === 'pickup' ? 'pickup' : 'delivery',
+    };
+  }
+  save(STORAGE_KEYS.fulfillment, state.fulfillment);
 
   // Self-heal: if arrays are empty, rehydrate from JSON files
   async function rehydrateIfEmpty(arr, key, path) {
@@ -194,6 +217,8 @@ export async function initStore() {
   save(STORAGE_KEYS.orders, state.orders);
   state.users = await rehydrateIfEmpty(state.users, STORAGE_KEYS.users, './data/users.json');
   state.chat = await rehydrateIfEmpty(state.chat, STORAGE_KEYS.chat, './data/chat.json');
+  state.stores = await rehydrateIfEmpty(state.stores, STORAGE_KEYS.stores, './data/stores.json');
+  save(STORAGE_KEYS.stores, state.stores);
 }
 
 export const getUser = () => state.user;
@@ -276,6 +301,14 @@ export function cartSummary() {
 export function createOrder(payload) {
   const { detailed, subtotal } = cartSummary();
   const id = 'ORD-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const fulfillment = {
+    ...DEFAULT_FULFILLMENT,
+    ...state.fulfillment,
+    ...(payload.fulfillment || {}),
+  };
+  if (fulfillment.method !== 'delivery') {
+    fulfillment.deliveryDate = '';
+  }
   const order = {
     id,
     createdAt: new Date().toISOString(),
@@ -285,6 +318,7 @@ export function createOrder(payload) {
     customer: payload.customer,
     notes: payload.notes || '',
     payment: payload.payment,
+    fulfillment,
   };
   order.tracking = buildTracking(order);
   const currentStep = order.tracking.steps?.find(step => step.status === 'current') || order.tracking.steps?.[0];
@@ -352,6 +386,35 @@ export function shippingFor(subtotal) {
   // Free shipping over S/600, else S/19.90
   return subtotal >= 600 ? 0 : 19.9;
 }
+
+function persistFulfillment() {
+  save(STORAGE_KEYS.fulfillment, state.fulfillment);
+  document.dispatchEvent(new CustomEvent('fulfillment:changed', { detail: { ...state.fulfillment } }));
+}
+
+export const getFulfillmentOptions = () => ({ ...state.fulfillment });
+export function setFulfillmentOptions(patch) {
+  state.fulfillment = {
+    ...state.fulfillment,
+    ...patch,
+  };
+  if (state.fulfillment.method !== 'delivery') {
+    state.fulfillment.method = 'pickup';
+    state.fulfillment.deliveryDate = '';
+  } else {
+    state.fulfillment.method = 'delivery';
+    state.fulfillment.pickupStore = patch.pickupStore ?? state.fulfillment.pickupStore;
+  }
+  if (state.fulfillment.pickupStore) {
+    state.fulfillment.pickupStore = { ...state.fulfillment.pickupStore };
+  }
+  persistFulfillment();
+}
+export function resetFulfillmentOptions() {
+  state.fulfillment = { ...DEFAULT_FULFILLMENT };
+  persistFulfillment();
+}
+export const listPickupStores = () => state.stores.slice();
 
 export function signIn(email, password) {
   const u = state.users.find(u => u.email?.toLowerCase() === String(email).toLowerCase() && u.password === password);
