@@ -56,14 +56,15 @@ export default function renderHome() {
       <div class="grid md:grid-cols-2 gap-8 items-center">
         <div class="max-w-7xl hidden md:block px-4 sm:px-8 md:px-12 lg:px-24 xl:px-48 py-24 md:py-36">
 
-          <div class="flex mb-5 items-center text-brand-1100 font-semibold">
+          <div class="w-[65%] flex mb-5 items-center text-brand-1100 font-semibold mx-auto">
             <div class="flex-1 border-t-2 border-brand-1100"></div>
             <span class="px-6 text-xs">X</span>
             <div class="flex-1 border-t-2 border-brand-1100"></div>
           </div>
 
-          <h1 class="pt-sans-bold text-3xl md:text-5xl font-extrabold tracking-normal uppercase text-brand-600 text-center">Embutidos Braedt, directo a tu mesa</h1>
-             <div class="flex mt-5 items-center text-brand-1100 font-semibold">
+          <h1 class="josefin-sans-700  text-3xl md:text-5xl tracking-tighter uppercase text-brand-600 text-center">Embutidos Braedt, directo a tu mesa</h1>
+          
+          <div class="w-[65%] flex mt-5 items-center text-brand-1100 font-semibold mx-auto">
             <div class="flex-1 border-t-2 border-brand-1100"></div>
             <span class="px-6 text-xs">X</span>
             <div class="flex-1 border-t-2 border-brand-1100"></div>
@@ -130,16 +131,24 @@ export default function renderHome() {
   <section class="md:hidden bg-white/80 background-brand">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
           
-      <div class="flex items-center text-brand-1100 font-semibold">
+      <div class="w-[65%] flex mb-1 items-center text-brand-1100 font-semibold mx-auto">
+        <div class="flex-1 border-t-2 border-brand-1100"></div>
+        <span class="px-6 text-xs">X</span>
+        <div class="flex-1 border-t-2 border-brand-1100"></div>
+      </div>
+
+      <h1 class="josefin-sans-700  text-3xl md:text-5xl tracking-tighter uppercase text-brand-600 text-center">Embutidos Braedt, directo a tu mesa</h1>
+      
+      <div class="w-[65%] flex mt-1 items-center text-brand-1100 font-semibold mx-auto">
         <div class="flex-1 border-t-2 border-brand-1100"></div>
         <span class="px-6 text-xs">X</span>
         <div class="flex-1 border-t-2 border-brand-1100"></div>
       </div>
       
       <div>
-        <h1 class="text-4xl font-extrabold tracking-tight text-brand-600">Embutidos Braedt, ahora directos a tu negocio</h1>
         <p class="mt-3 text-slate-600 text-base">Compra jamones, salchichas, chorizos y más con precios mayoristas, escalas por volumen y entrega refrigerada.</p>
       </div>
+
       <div class="flex flex-col sm:flex-row gap-3">
         <a href="#/catalogo"class="text-sm px-6 py-3 border border-2 border-brand-600 text-brand-600 font-semibold uppercase text-center bg-transparent hover:bg-brand-700 hover:text-white transition-colors duration-300">Ver catálogo</a>
             <button id="ctaLearnDesktop" 
@@ -153,41 +162,43 @@ export default function renderHome() {
         <div class="flex items-center gap-1 rounded-2xl bg-transparent px-4 py-3"><span class="material-icons-outlined text-brand-600">verified</span>Calidad Braedt</div>
       </div>
 
-      <div class="flex items-center text-brand-1100 font-semibold">
-        <div class="flex-1 border-t-2 border-brand-1100"></div>
-        <span class="px-6 text-xs">X</span>
-        <div class="flex-1 border-t-2 border-brand-1100"></div>
-      </div>
+     
     </div>
   </section>
-  <section class="background-brand-2">
+  <section class="background-brand-2 pt-12 pb-36">
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 ">
-    <div class="w-full px-2 py-2 mb-4 mt-4 items-center text-center overflow-hidden pt-sans-regular">
+    <div class="w-full px-2 pb-12 mb-4 mt-4 items-center text-center overflow-hidden pt-sans-regular">
       <img
         src="/assets/texts/text-nuestros-productos-white.png"
         class="mx-auto w-48 sm:w-56 md:w-64 lg:w-72" 
         >
-      <p class="text-white" >Explora todas nuestras categorias</p>
+      <p class="text-white mt-3" >Explora todas nuestras categorias</p>
     </div>  
   
-    <div class="grid grid-cols-1 px-2 py-2 sm:grid-cols-2 md:grid-cols-3 gap-2 bg-white rounded-lg">
+    <div class="grid grid-cols-1 px-2 py-2 sm:grid-cols-2 md:grid-cols-3 gap-2 bg-white rounded-lg w-[70%]  mx-auto">
       ${categories
         .map(
           (c) => `
-          
-           <a 
-              href="#/catalogo?cat=${encodeURIComponent(c.description)}"
-              style="background-image: url('${c.image}')"  
-              class="relative  border border-slate-200 bg-cover bg-center bg-no-repeat h-64 w-full overflow-hidden hover:border-brand-300 hover:shadow-soft transition  transition-transform duration-500 ease-in-out hover:scale-110"
-            >
-    
-            <div class="absolute inset-0 bg-black/20"></div>
+        <a 
+          href="#/catalogo?cat=${encodeURIComponent(c.description)}"
+          class="relative block border border-slate-200 h-64 w-full overflow-hidden rounded-lg hover:border-brand-300 hover:shadow-soft transition-all duration-500 ease-in-out group"
+        >
+          <!-- Imagen de fondo -->
+          <img 
+            src="${c.image}" 
+            alt="${c.description}" 
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+          >
 
-            <div class="absolute bottom-0 inset-x-0 bg-brand-600/80 px-2 text-white text-left py-3">
-              <div class="font-semibold text-sm">| ${c.description}</div>
-            </div>
-          </a>
-        
+          <!-- Capa oscura encima -->
+          <div class="absolute inset-0 bg-black/20 transition-colors duration-700 ease-in-out group-hover:bg-black/40"></div>
+
+          <!-- Contenido inferior -->
+          <div class="absolute bottom-0 inset-x-0 bg-brand-600/80 px-2 text-white text-left py-3">
+            <div class="font-semibold text-sm">| ${c.description}</div>
+          </div>
+        </a>
+
         `
         )
         .join('')}
