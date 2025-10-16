@@ -98,7 +98,7 @@ export default function renderChat() {
       }
       const isCustomer = msg.from === 'customer';
       const bubble = `
-        <div class="${isCustomer ? 'bg-brand-600 text-white rounded-3xl rounded-tr-md shadow-lg' : 'bg-white text-slate-700 rounded-3xl rounded-tl-md border border-slate-200 shadow-sm'} px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap">
+        <div class="${isCustomer ? 'bg-brand-600 text-white rounded-3xl rounded-tr-md shadow-lg' : 'bg-white text-slate-700 rounded-3xl rounded-tl-md border border-slate-200 shadow-sm'} px-4 py-3 text-sm leading-relaxed">
           ${escapeHTML(msg.text)}
           <div class="mt-1 text-[11px] uppercase tracking-wide ${isCustomer ? 'text-white/75 text-right' : 'text-slate-400'}">
             ${escapeHTML(timeFormatter.format(date))}${msg.status ? ` • ${escapeHTML(statusLabel(msg.status))}` : ''}
