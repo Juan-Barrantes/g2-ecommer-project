@@ -1,0 +1,28 @@
+Instrucciones para personalizar imágenes
+=======================================
+
+1. Pantalla de inicio (`js/views/home.js`)
+   - Busca la constante `carouselItems` dentro de `renderHome`.
+   - Cambia la propiedad `src` de cada objeto por la URL o ruta relativa de la imagen que quieras mostrar.
+   - Ajusta también `alt`, `tag`, `highlight` y `caption` para describir la nueva imagen.
+   - Para agregar o quitar diapositivas, suma o elimina objetos del arreglo `carouselItems`. El carrusel se actualiza automáticamente con la cantidad de elementos que declares.
+   - Si usas archivos locales, colócalos en una carpeta accesible (por ejemplo `./img/`) y referencia la ruta con `src="./img/archivo.jpg"`.
+
+2. Catálogo y carrito
+   - Las tarjetas de producto y las miniaturas del carrito toman sus imágenes del campo `image` en `data/products.json`.
+   - Edita cada entrada y reemplaza el valor de `image` por tu nueva URL o ruta local.
+   - Si estás usando la semilla opcional para prototipos (`js/data/products.js`), replica allí los mismos cambios en el campo `image`.
+   - Después de actualizar el JSON, borra `mp_products` desde el Local Storage del navegador para que la app vuelva a leer los datos nuevos.
+
+3. Pantalla de pago (`js/views/checkout.js`)
+   - Dentro del modal del QR, reemplaza la URL en el atributo `src` de la etiqueta `<img>` si quieres usar otro código QR o una imagen distinta.
+   - Ajusta el atributo `alt` para describir correctamente la nueva imagen.
+
+4. Tracking de órdenes (`js/views/tracking.js`)
+   - La imagen del mapa se genera en la función `buildMapUrl`. Sustituye la URL retornada si prefieres un mapa estático propio o una imagen personalizada.
+   - Otra opción es omitir la generación dinámica y devolver directamente la ruta de tu imagen (`return './img/mi-mapa.png';`).
+
+5. Consejos generales
+   - Mantén las imágenes optimizadas para web (formato JPG o WebP y peso inferior a 400 KB) para evitar demoras.
+   - Revisa los atributos `alt` en todas las imágenes para asegurar accesibilidad.
+   - Si trabajas con rutas locales, verifica que el servidor que uses para probar el proyecto sirva también la carpeta donde guardas las imágenes.

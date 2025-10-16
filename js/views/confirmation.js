@@ -12,8 +12,16 @@ export default function renderConfirmation() {
       </div>
       <h1 class="text-2xl font-bold mt-4">¡Compra realizada!</h1>
       <p class="mt-2 text-slate-600">Tu orden <span class="font-semibold">${id}</span> fue registrada. Nos contactaremos al número <span class="font-semibold">${phone}</span> para coordinar la entrega.</p>
-      <a href="#/ordenes" class="inline-block mt-6 px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold">Ver mis órdenes</a>
+      <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <a href="#/tracking?id=${encodeURIComponent(id)}" class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white hover:bg-brand-700">
+          <span class="material-icons-outlined text-base">near_me</span>
+          Ver tracking en vivo
+        </a>
+        <a href="#/ordenes" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 hover:border-brand-200 hover:text-brand-600">
+          <span class="material-icons-outlined text-base">receipt_long</span>
+          Ver mis órdenes
+        </a>
+      </div>
     </div>
   `;
 }
-

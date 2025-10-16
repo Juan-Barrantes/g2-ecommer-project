@@ -12,7 +12,8 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop',
     tags: ['básicos','alta rotación'],
     tiers: [ { minQty: 5, price: 22.9 }, { minQty: 10, price: 21.9 } ],
-    description: 'Arroz grano largo de excelente calidad, ideal para el día a día.'
+    description: 'Arroz grano largo de excelente calidad, ideal para el día a día.',
+    isFavorite: true
   },
   {
     id: 102,
@@ -27,7 +28,8 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1550783600-7714f62a0935?q=80&w=1200&auto=format&fit=crop',
     tags: ['caja x12','promoción'],
     tiers: [ { minQty: 24, price: 7.2 }, { minQty: 48, price: 6.9 } ],
-    description: 'Aceite vegetal multiuso con vitamina A, ideal para frituras.'
+    description: 'Aceite vegetal multiuso con vitamina A, ideal para frituras.',
+    isFavorite: false
   },
   {
     id: 103,
@@ -42,7 +44,8 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1588167108373-bc69de7acd1b?q=80&w=1200&auto=format&fit=crop',
     tags: ['caja','popular'],
     tiers: [ { minQty: 48, price: 3.7 }, { minQty: 96, price: 3.5 } ],
-    description: 'Leche evaporada entera, cremosa y nutritiva para consumo diario.'
+    description: 'Leche evaporada entera, cremosa y nutritiva para consumo diario.',
+    isFavorite: false
   },
   {
     id: 104,
@@ -57,7 +60,8 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1587731556938-38755b4803be?q=80&w=1200&auto=format&fit=crop',
     tags: ['pack x6'],
     tiers: [ { minQty: 12, price: 7.5 }, { minQty: 24, price: 7.1 } ],
-    description: 'Refresco cola con gran sabor, ideal para reuniones y eventos.'
+    description: 'Refresco cola con gran sabor, ideal para reuniones y eventos.',
+    isFavorite: true
   },
   {
     id: 105,
@@ -72,7 +76,8 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1200&auto=format&fit=crop',
     tags: ['caja','económico'],
     tiers: [ { minQty: 40, price: 2.0 }, { minQty: 100, price: 1.9 } ],
-    description: 'Spaghetti de trigo duro, textura al dente y excelente rendimiento.'
+    description: 'Spaghetti de trigo duro, textura al dente y excelente rendimiento.',
+    isFavorite: false
   },
   {
     id: 106,
@@ -87,7 +92,8 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1586201375761-83865001e31b?q=80&w=1200&auto=format&fit=crop',
     tags: ['alto margen'],
     tiers: [ { minQty: 48, price: 4.1 }, { minQty: 96, price: 3.9 } ],
-    description: 'Atún de alta calidad, bajo en grasa y alto en proteína.'
+    description: 'Atún de alta calidad, bajo en grasa y alto en proteína.',
+    isFavorite: false
   },
   {
     id: 107,
@@ -102,7 +108,8 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1499601110127-2bf0d6f195bb?q=80&w=1200&auto=format&fit=crop',
     tags: ['básicos'],
     tiers: [ { minQty: 30, price: 3.0 }, { minQty: 60, price: 2.9 } ],
-    description: 'Azúcar rubia granulada de excelente pureza.'
+    description: 'Azúcar rubia granulada de excelente pureza.',
+    isFavorite: false
   },
   {
     id: 108,
@@ -117,7 +124,7 @@ export const PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1604335399105-a0d7f7d4d1b2?q=80&w=1200&auto=format&fit=crop',
     tags: ['hogar'],
     tiers: [ { minQty: 24, price: 7.1 }, { minQty: 48, price: 6.8 } ],
-    description: 'Detergente en polvo con alto poder de limpieza para todo tipo de ropa.'
+    description: 'Detergente en polvo con alto poder de limpieza para todo tipo de ropa.',
+    isFavorite: false
   },
 ];
-
