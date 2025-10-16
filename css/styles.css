@@ -37,7 +37,10 @@ html, body {
   backdrop-filter: blur(18px);
 }
 
-.app-footer { background: transparent; }
+.app-footer { 
+  background: rgb(0, 0, 0); 
+  color: whitesmoke;
+}
 
 .nav-link.is-active,
 .nav-link.is-active .material-icons-outlined { color: #f7c466; }
@@ -170,8 +173,8 @@ html, body {
   }
 
   .app-footer {
-    background: #f8fafc;
-    border-top: 1px solid rgba(148, 163, 184, 0.25);
+    background: #000000;
+    color: whitesmoke;
   }
 }
 
