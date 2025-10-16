@@ -176,8 +176,20 @@ export default function renderTracking({ query }) {
               <span class="material-icons-outlined text-brand-500">map</span>
             </div>
             <div class="mt-4 overflow-hidden rounded-xl border border-slate-100 bg-slate-100">
-          <img src="${mapUrl}" alt="Mapa de ruta" class="h-64 w-full object-cover md:h-72">
-            </div>
+            
+              <div class="w-full aspect-video">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31215.922940359153!2d-76.9619458829512!3d-12.044183473207813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x9105c3f8453ef397%3A0x7de99a26fdaf8bc!2sIndustrial%20120%2C%20Lima%2015491!3m2!1d-12.0261747!2d-76.9161498!4m5!1s0x9105c65f9a150d29%3A0xd02a185ac5fe93fd!2sAv%20Los%20Frutales%20419%2C%20Ate!3m2!1d-12.062209099999999!2d-76.9653075!5e0!3m2!1ses!2spe!4v1760578322247!5m2!1ses!2spe"
+                        class="w-full h-full rounded-lg"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    </div>
+
+
+          </div>
             <div class="mt-3 text-xs text-slate-500">
               <div><span class="font-semibold text-slate-600">Salida:</span> ${tracking.route?.origin?.address || 'Centro logístico'}</div>
               <div><span class="font-semibold text-slate-600">Destino:</span> ${tracking.route?.destination?.address || order.customer?.address || 'Tu negocio'}</div>
