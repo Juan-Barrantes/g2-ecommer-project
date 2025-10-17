@@ -144,6 +144,9 @@ export default function renderCheckout() {
       </div>
       <div id="cardModal" class="hidden fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center px-4">
         <div class="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-lg">
+          <button id="closeCardModal" type="button" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full border border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300">
+            <span class="material-icons-outlined text-base">close</span>
+          </button>
           <div class="text-lg font-semibold mb-1">Datos de la tarjeta</div>
           <p class="text-sm text-slate-500 mb-4">Ingresa los datos de tu tarjeta para continuar con el pago.</p>
           <form id="cardForm" class="space-y-3">
@@ -325,8 +328,18 @@ export default function renderCheckout() {
   const cardCvv = document.getElementById('cardCvv');
   const cardAccept = document.getElementById('cardAccept');
   const cardError = document.getElementById('cardError');
+  const closeCardModalBtn = document.getElementById('closeCardModal');
+  const cardPayRadio = document.querySelector('input[name="pay"][value="tarjeta"]');
   let cardDataAccepted = false;
   const payError = document.getElementById('payError');
+
+  function resetCardForm() {
+    if (cardNumber) cardNumber.value = '';
+    if (cardExpiry) cardExpiry.value = '';
+    if (cardCvv) cardCvv.value = '';
+    if (cardAccept) cardAccept.disabled = true;
+    cardError?.classList.add('hidden');
+  }
 
   function normalizeCardNumber(value) {
     return value.replace(/\D+/g, '').slice(0, 19);
@@ -353,12 +366,21 @@ export default function renderCheckout() {
   function showCardModal() {
     if (!cardModal) return;
     cardModal.classList.remove('hidden');
+    resetCardForm();
     cardDataAccepted = false;
     requestAnimationFrame(() => cardNumber?.focus());
   }
 
-  function hideCardModal() {
-    cardModal?.classList.add('hidden');
+  function hideCardModal({ resetSelection = false } = {}) {
+    if (!cardModal) return;
+    cardModal.classList.add('hidden');
+    if (resetSelection) {
+      cardDataAccepted = false;
+      resetCardForm();
+      if (cardPayRadio) {
+        cardPayRadio.checked = false;
+      }
+    }
   }
 
   cardNumber?.addEventListener('input', (e) => {
@@ -386,6 +408,16 @@ export default function renderCheckout() {
     }
     cardDataAccepted = true;
     hideCardModal();
+  });
+
+  closeCardModalBtn?.addEventListener('click', () => {
+    hideCardModal({ resetSelection: true });
+  });
+
+  cardModal?.addEventListener('click', (e) => {
+    if (e.target === cardModal) {
+      hideCardModal({ resetSelection: true });
+    }
   });
 
   const qrModal = document.getElementById('qrModal');
