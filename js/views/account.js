@@ -1,4 +1,5 @@
 import { getUser, signOut, signIn, createAccount } from '../store.js';
+import { showToast } from '../components/toast.js';
 
 export default function renderAccount() {
   const app = document.getElementById('app');
@@ -15,7 +16,10 @@ export default function renderAccount() {
         </div>
       </div>
     `;
-    document.getElementById('logout').addEventListener('click', ()=>{ signOut(); location.hash = '#/cuenta'; });
+    document.getElementById('logout').addEventListener('click', ()=>{
+      signOut();
+      location.hash = '#/';
+    });
     return;
   }
 
@@ -108,6 +112,7 @@ export default function renderAccount() {
     try {
       if (!name || !email || !password) throw new Error('Completa nombre, correo y contraseña');
       createAccount({ name, email, password, phone, address });
+      showToast('Tu cuenta se creo con exito');
       document.dispatchEvent(new CustomEvent('user:changed'));
       location.hash = '#/';
     } catch (e) {
