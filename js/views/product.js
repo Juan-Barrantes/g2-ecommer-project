@@ -45,6 +45,8 @@ export default function renderProduct({ segments }) {
         <div class="mt-6 flex items-center gap-3">
           <input id="qty" type="number" min="${p.moq||1}" step="1" value="${p.moq||1}" class="w-28 px-3 py-2 rounded-xl border border-slate-200" />
           <button id="addBtn" class="px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700">Agregar al carrito</button>
+       
+          <a href="#/catalogo" data-route="/catalogo"class="px-5 py-3 rounded-xl border-1 bg-brand-500 text-white font-semibold hover:bg-brand-700">Volver</a>
         </div>
       </div>
     </div>
