@@ -16,10 +16,7 @@ export default function renderAccount() {
         </div>
       </div>
     `;
-    document.getElementById('logout').addEventListener('click', ()=>{
-      signOut();
-      location.hash = '#/';
-    });
+    document.getElementById('logout').addEventListener('click', ()=>{ signOut(); location.hash = '#/'; });
     return;
   }
 
@@ -109,6 +106,14 @@ export default function renderAccount() {
     const address = document.getElementById('regAddress').value.trim();
     const err = document.getElementById('registerError');
     err.classList.add('hidden'); err.textContent = '';
+
+    const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if (!emailRegex.test(email)) {
+        err.textContent = 'Correo electrónico no válido';
+        err.classList.remove('hidden');
+        return;
+      }
+
     try {
       if (!name || !email || !password) throw new Error('Completa nombre, correo y contraseña');
       createAccount({ name, email, password, phone, address });
