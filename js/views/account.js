@@ -66,6 +66,10 @@ export default function renderAccount() {
             <input id="regAddress" class="w-full px-3 py-2 rounded-xl border border-slate-200" />
           </div>
         </div>
+        <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-600">
+          <input id="regTerms" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+          <span>Acepto los terminos y condiciones</span>
+        </label>
         <button id="registerBtn" class="w-full px-4 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700">Crear cuenta</button>
         <p id="registerError" class="hidden text-sm text-red-600"></p>
       </div>
@@ -107,10 +111,12 @@ export default function renderAccount() {
     const password = document.getElementById('regPass').value;
     const phone = document.getElementById('regPhone').value.trim();
     const address = document.getElementById('regAddress').value.trim();
+    const termsAccepted = document.getElementById('regTerms')?.checked;
     const err = document.getElementById('registerError');
     err.classList.add('hidden'); err.textContent = '';
     try {
       if (!name || !email || !password) throw new Error('Completa nombre, correo y contraseña');
+      if (!termsAccepted) throw new Error('Acepta los terminos y condiciones');
       createAccount({ name, email, password, phone, address });
       showToast('Tu cuenta se creo con exito');
       document.dispatchEvent(new CustomEvent('user:changed'));
